@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request, jsonify,send_from_directory
+from flask import Flask,render_template,request, jsonify,url_for,send_from_directory,redirect
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import sessionmaker
 from flask_cors import *
@@ -60,9 +60,20 @@ def data():
 def index():
     return render_template('index.html')
 
-@app.route('/tabs/',methods=['GET'])
+@app.route('/tabs/',methods=['GET','POST'])
 def tabs():
-    return render_template('tabs.html')
+    if request.method == 'GET':
+        return render_template('tabs.html')
+    else:
+        name = request.form.get('name')
+        director = request.form.get('director')
+        act_1 = request.form.get('act_1')
+        act_2 = request.form.get('act_2')
+        act_3 = request.form.get('act_3')
+        type = request.form.get('type')
+        invest = request.form.get('invest')
+        key_word = request.form.get('key_word')
+        return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
