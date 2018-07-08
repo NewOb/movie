@@ -56,11 +56,11 @@ def data():
 
     return jsonify(ALLDATA)
 
-@app.route('/',methods=['GET'])
+@app.route('/chart/',methods=['GET'])
 def index():
     return render_template('index.html')
 
-@app.route('/tabs/',methods=['GET','POST'])
+@app.route('/',methods=['GET','POST'])
 def tabs():
     if request.method == 'GET':
         return render_template('tabs.html')
@@ -72,7 +72,7 @@ def tabs():
         act_3 = request.form.get('act_3')
         type = request.form.get('type')
         invest = request.form.get('invest')
-        key_word = request.form.get('key_word')
+        key_word = request.form.get('key_words')
         return redirect(url_for('index'))
 
 if __name__ == '__main__':
