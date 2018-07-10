@@ -8,9 +8,10 @@
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 
-<body background="../static/img/firstbg.png">
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
-    选项卡按钮
+<body background="{{ url_for('static',filename = 'img/firstbg.png') }}">
+<button type="button" class="btn btn-lg" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"
+        id="Mbtn">
+    click here and start
 </button>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog modal-lg" role="document">
@@ -44,18 +45,19 @@
                     </div>
                     <div class="form-group">
                         <label for="type" class="control-label">电影类型</label>
-                        <input type="text" class="form-control" name="type" id="type">
+                        <input type="text" class="form-control" name="type" id="type" placeholder="类型之间请用空格分开">
                     </div>
                     <div class="form-group">
                         <label for="invest" class="control-label">投资金额</label>
-                        <input type="text" class="form-control" name="invest" id="invest">
+                        <input type="text" class="form-control" name="invest" id="invest" placeholder="单位：万元">
                     </div>
                     <div class="form-group">
                         <label for="key_words" class="control-label">剧情关键词</label>
-                        <input type="text" class="form-control" name="key_words" id="key_words">
+                        <input type="text" class="form-control" name="key_words" id="key_words"
+                               placeholder="关键词之间请用空格分开">
                     </div>
                     <div class="form-group">
-                        <label for="level" class="control-label">电影色彩</label>
+                        <label for="CBW" class="control-label">电影色彩</label>
                         <select class="form-control" name="CBW" id="CBW">
                             <option value="BW">黑白</option>
                             <option value="color">彩色</option>
@@ -86,5 +88,6 @@
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
+<script src="{{ url_for('static',filename = 'js/tabs.js') }}"></script>
 
 </html>

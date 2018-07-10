@@ -40,6 +40,10 @@ def tabs():
         type = request.form.get('type')
         invest = request.form.get('invest')
         key_word = request.form.get('key_words')
+        CBW = request.form.get('CBW')
+        level = request.form.get('level')
+        print(CBW)
+        print(level)
         return redirect(url_for('index'))
 
 if __name__ == '__main__':
