@@ -18,7 +18,6 @@ def data():
         all_xl=ALL.pop()
         all_data['NAME']=all_xl.name
         ALLDATA.append(all_data)
-        print(ALLDATA)
         all_data={}
 
     return jsonify(ALLDATA)
@@ -34,15 +33,12 @@ def tabs():
     else:
         name = request.form.get('name')
         director = request.form.get('director')
-        act_1 = request.form.get('act_1')
-        act_2 = request.form.get('act_2')
-        act_3 = request.form.get('act_3')
+        act = request.form.get('act')
         type = request.form.get('type')
         invest = request.form.get('invest')
         key_word = request.form.get('key_words')
         CBW = request.form.get('CBW')
         level = request.form.get('level')
-        print(CBW)
         print(level)
         return redirect(url_for('index'))
 

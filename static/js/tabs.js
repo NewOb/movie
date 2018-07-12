@@ -4,10 +4,10 @@ var i = 0;
 function action() {
     i++;
     if (i == 1) {
-        $("#Mbtn").fadeOut(600);
+        $("#Mbtn").fadeIn(500);
     }
     if (i == 2) {
-        $("#Mbtn").fadeIn(3500);
+        $("#Mbtn").fadeOut(3500);
         i = 0;
     }
     setTimeout(action(), 10000);
