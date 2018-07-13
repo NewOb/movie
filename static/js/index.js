@@ -52,7 +52,7 @@ d3.json("/data/", function (error, type_data) {
                 })
                 .attr("text-anchor", "middle")
                 .attr("transform", function (d) {
-                    return "translate(" + [d.y, d.x] + ")";
+                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
                 })
                 .text(function (d) {
                     return d.text;
