@@ -6,24 +6,24 @@ d3.json("/data/", function (error, type_data) {
         if (error)
             console.log(error);
         console.log(type_data);
-        console.log(type_data[0].zh);
+        // console.log(type_data[0].zh);
         while (i < 16) {
             // console.log(tabs[i].zh);
             type[i] = type_data[i].zh;
             type_like[i] = type_data[i].like;
             i++;
         }
-        console.log(type);
+        // console.log(type);
         // var fill = d3.scale.category20();
 
         var layout = d3.layout.cloud()
-            .size([500, 500])  // 宽高
-            .words(type.map(function (d,i) {
-                return {text: d, size: type_like[i]%50 + 30};
+            .size([600, 400])  // 宽高
+            .words(type.map(function (d, i) {
+                return {text: d, size: type_like[i] % 50 + 30};
             }))  // 数据
             .padding(5)  // 内间距
             .rotate(function () {
-                return ~~(Math.random() * 2) * 90;
+                return ~~(Math.random() * 2);
             })
             .font("Impact")
             .fontSize(function (d) {
@@ -43,20 +43,28 @@ d3.json("/data/", function (error, type_data) {
                 .selectAll("text")
                 .data(words)
                 .enter().append("text")
-                .style("font-size", function (d) {
-                    return d.size + "px";
-                })
-                .style("font-family", "Impact")
-                .style("fill", function (d, i) {
-                    return color[i];
-                })
                 .attr("text-anchor", "middle")
                 .attr("transform", function (d) {
                     return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
                 })
+                .style("fill", function (d, i) {
+                    return color[i];
+                })
+                .transition()
+                .duration(1000)
+                .ease("linear")
+                .style("font-size", function (d) {
+                    return d.size + "px";
+                })
+                .style("font-family", "Impact")
                 .text(function (d) {
                     return d.text;
                 });
         }
     }
 );
+d3.json('/massage/',function (error,massage) {
+    if (error)
+        console.log(error);
+    console.log(massage)
+});
