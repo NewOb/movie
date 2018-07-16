@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
+from langdetect import detect
 import config
 from models import xunlian
 from exts import db
@@ -9,9 +10,7 @@ app.config.from_object(config)
 db.init_app(app)
 
 
-@app.route('/data/', methods=['GET'])
-def data():
-    d_type = [{'en': 'Comedy', 'zh': '喜剧', 'like': 0},
+d_type = [{'en': 'Comedy', 'zh': '喜剧', 'like': 0},
               {'en': 'Adventure', 'zh': '冒险', 'like': 0},
               {'en': 'Fantasy', 'zh': '幻想', 'like': 0},
               {'en': 'Mystery', 'zh': '悬念', 'like': 0},
@@ -28,6 +27,9 @@ def data():
               {'en': 'Family', 'zh': '家庭', 'like': 0},
               {'en': 'Crime', 'zh': '犯罪', 'like': 0},
               ]
+
+@app.route('/data/', methods=['GET'])
+def data():
     # com = adv = fan = mys = thr = doc = war = wes = rom = dra = hor = act = sci = mus = fam = cri = 0
     # mytype = []
     ALL = xunlian.query.all()
@@ -86,19 +88,41 @@ def data():
     #     FinCloud.append(cloud)
     #     all_data = {}
     # print(table_massage)
-
+    # print(table_massage['type'])
     return jsonify(d_type)
 
 
 @app.route('/massage/')
 def massage():
+    a = []
+    years = []
+    # 中英文翻译转换
+    for types in table_massage['type']:
+        if detect(types) != 'zh-cn':
+            for i in d_type:
+                if types == i['en']:
+                    types = i['zh']
+                    a.append(types)
+    table_massage['type'] = a
+
+    data = xunlian.query.all()
+    for year in data:
+        if year.years == "NULL":
+            continue
+        elif year.years == '':
+            continue
+        elif year.years == "0":
+            continue
+        elif int(year.years) < 2000:
+            continue
+        years.append(int(year.years))
+
     return jsonify(table_massage)
 
 
 @app.route('/chart/', methods=['GET'])
 def index():
-    massage = jsonify(table_massage)
-    return render_template('index.html', massage=massage)
+    return render_template('index.html')
 
 
 table_massage = {}
@@ -117,15 +141,46 @@ def tabs():
         table_massage['key_word'] = request.form.get('key_words').split()
         table_massage['CBW'] = request.form.get('CBW')
         table_massage['level'] = request.form.get('level')
+        data = xunlian.query.all()
         dir = xunlian.query.filter(xunlian.director == table_massage['director']).all()
         dir_like = act1_like = act2_like = act3_like = 0
         act1 = xunlian.query.filter(xunlian.act_one == table_massage['act'][0]).all()
         act2 = xunlian.query.filter(xunlian.act_two == table_massage['act'][1]).all()
         act3 = xunlian.query.filter(xunlian.act_three == table_massage['act'][2]).all()
+        # i = 0
+        dir_like_l = []
+        act1_like_l = []
+        act2_like_l = []
+        act3_like_l = []
+        act_like_l = []
+        # print(data[0].dir_like)
+        for like in data:
+            if like.dir_like == '':
+                like.dir_like = 0
+            if like.act_one_like == '':
+                like.act_one_like = 0
+            if like.act_two_like == '':
+                like.act_two_like = 0
+            if like.act_three_like == '':
+                like.act_three_like = 0
+            dir_like_l.append(int(like.dir_like))
+            act1_like_l.append(int(like.act_one_like))
+            act2_like_l.append(int(like.act_two_like))
+            act3_like_l.append(int(like.act_three_like))
+            # act1_like_l[i]=int(data[i].act_one_like)
+            # act2_like_l[i]=int(data[i].act_two_like)
+            # act3_like_l[i]=int(data[i].act_three_like)
+            # i+=1
+        act_like_l.append(max(act1_like_l))  # 尽量避免角标，使用append（）方法
+        act_like_l.append(max(act2_like_l))
+        act_like_l.append(max(act3_like_l))
+        # print(act_like_l)
+        table_massage['all_act_like'] = max(act_like_l)
+        table_massage['all_dir_like'] = max(dir_like_l)
         if dir:
             i = 0
             while i < len(dir):
-                dir_like = int(dir[i].dir_like)
+                dir_like += int(dir[i].dir_like)
                 i += 1
             table_massage['dir_like'] = dir_like / len(dir)
         if act1:

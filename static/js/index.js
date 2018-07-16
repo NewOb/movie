@@ -16,7 +16,7 @@ d3.json("/data/", function (error, type_data) {
         // console.log(type);
         // var fill = d3.scale.category20();
 
-        var layout = d3.layout.cloud()
+        var cloud = d3.layout.cloud()
             .size([600, 400])  // 宽高
             .words(type.map(function (d, i) {
                 return {text: d, size: type_like[i] % 50 + 30};
@@ -31,15 +31,15 @@ d3.json("/data/", function (error, type_data) {
             })
             .on("end", draw);
 
-        layout.start();
+        cloud.start();
 
         function draw(words) {
 
             d3.select("#cloud").append("svg")
-                .attr("width", layout.size()[0])
-                .attr("height", layout.size()[1])
+                .attr("width", cloud.size()[0])
+                .attr("height", cloud.size()[1])
                 .append("g")
-                .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+                .attr("transform", "translate(" + cloud.size()[0] / 2 + "," + cloud.size()[1] / 2 + ")")
                 .selectAll("text")
                 .data(words)
                 .enter().append("text")
@@ -66,5 +66,10 @@ d3.json("/data/", function (error, type_data) {
 d3.json('/massage/',function (error,massage) {
     if (error)
         console.log(error);
-    console.log(massage)
+    console.log(massage);
+    // i =0;
+    // while (massage.type) {
+    //     console.log(massage.type[i]);
+    //     i++;
+    // }
 });
