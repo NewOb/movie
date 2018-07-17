@@ -9,24 +9,24 @@ app = Flask(__name__)
 app.config.from_object(config)
 db.init_app(app)
 
-
 d_type = [{'en': 'Comedy', 'zh': '喜剧', 'like': 0},
-              {'en': 'Adventure', 'zh': '冒险', 'like': 0},
-              {'en': 'Fantasy', 'zh': '幻想', 'like': 0},
-              {'en': 'Mystery', 'zh': '悬念', 'like': 0},
-              {'en': 'Thriller', 'zh': '惊悚', 'like': 0},
-              {'en': 'Documentary', 'zh': '记录', 'like': 0},
-              {'en': 'War', 'zh': '战争', 'like': 0},
-              {'en': 'Western', 'zh': '西部', 'like': 0},
-              {'en': 'Romance', 'zh': '爱情', 'like': 0},
-              {'en': 'Drama', 'zh': '剧情', 'like': 0},
-              {'en': 'Horror', 'zh': '恐怖', 'like': 0},
-              {'en': 'Action', 'zh': '动作', 'like': 0},
-              {'en': 'Sci-Fi', 'zh': '科幻', 'like': 0},
-              {'en': 'Music', 'zh': '音乐', 'like': 0},
-              {'en': 'Family', 'zh': '家庭', 'like': 0},
-              {'en': 'Crime', 'zh': '犯罪', 'like': 0},
-              ]
+          {'en': 'Adventure', 'zh': '冒险', 'like': 0},
+          {'en': 'Fantasy', 'zh': '幻想', 'like': 0},
+          {'en': 'Mystery', 'zh': '悬念', 'like': 0},
+          {'en': 'Thriller', 'zh': '惊悚', 'like': 0},
+          {'en': 'Documentary', 'zh': '记录', 'like': 0},
+          {'en': 'War', 'zh': '战争', 'like': 0},
+          {'en': 'Western', 'zh': '西部', 'like': 0},
+          {'en': 'Romance', 'zh': '爱情', 'like': 0},
+          {'en': 'Drama', 'zh': '剧情', 'like': 0},
+          {'en': 'Horror', 'zh': '恐怖', 'like': 0},
+          {'en': 'Action', 'zh': '动作', 'like': 0},
+          {'en': 'Sci-Fi', 'zh': '科幻', 'like': 0},
+          {'en': 'Music', 'zh': '音乐', 'like': 0},
+          {'en': 'Family', 'zh': '家庭', 'like': 0},
+          {'en': 'Crime', 'zh': '犯罪', 'like': 0},
+          ]
+
 
 @app.route('/data/', methods=['GET'])
 def data():
@@ -118,12 +118,82 @@ def massage():
         years.append(int(year.years))
     years = list(set(years))
     years.sort()
+    com_box = com_sor = adv_box = adv_sor = fan_box = fan_sor = mys_box = mys_sor = thr_box = thr_sor = doc_box = doc_sor = war_box = war_sor = wes_box = wes_sor = rom_box = rom_sor = dra_box = dra_sor = hor_box = hor_sor = act_box = act_sor = sci_box = sci_sor = mus_box = mus_sor = fam_box = fam_sor = cri_box = cri_sor = 0
+    a=b=c=d=e=f=g=h=i=j=k=l=m=n=o=p=0
+    year_data = {}
+    need_massage = []
     for year in years:
         for i in data:
             if year == i.years:
                 need = i.type.split("|")
                 for needs in need:
-                    if needs == d_type:
+                    # pass
+                    if needs == d_type[0]["en"]:
+                        com_box += int(i.Box_office)
+                        com_sor += i.IMDB
+                        a+=1
+                    elif needs == d_type[1]["en"]:
+                        adv_box += i.Box_office
+                        adv_sor += i.IMDB
+                        b += 1
+                    elif needs == d_type[2]["en"]:
+                        fan_box += i.Box_office
+                        fan_sor += i.IMDB
+                        c += 1
+                    elif needs == d_type[3]["en"]:
+                        mys_box += i.Box_office
+                        mys_sor += i.IMDB
+                        d += 1
+                    elif needs == d_type[4]["en"]:
+                        thr_box += i.Box_office
+                        thr_sor += i.IMDB
+                        e += 1
+                    elif needs == d_type[5]["en"]:
+                        doc_box += i.Box_office
+                        doc_sor += i.IMDB
+                        f += 1
+                    elif needs == d_type[6]["en"]:
+                        war_box += i.Box_office
+                        war_sor += i.IMDB
+                        g += 1
+                    elif needs == d_type[7]["en"]:
+                        wes_box += i.Box_office
+                        wes_sor += i.IMDB
+                        h += 1
+                    elif needs == d_type[8]["en"]:
+                        rom_box += i.Box_office
+                        rom_sor += i.IMDB
+                        i += 1
+                    elif needs == d_type[9]["en"]:
+                        dra_box += i.Box_office
+                        dra_sor += i.IMDB
+                        j += 1
+                    elif needs == d_type[10]["en"]:
+                        hor_box += i.Box_office
+                        hor_sor += i.IMDB
+                        k += 1
+                    elif needs == d_type[11]["en"]:
+                        act_box += i.Box_office
+                        act_sor += i.IMDB
+                        l += 1
+                    elif needs == d_type[12]["en"]:
+                        sci_box += i.Box_office
+                        sci_sor += i.IMDB
+                        m += 1
+                    elif needs == d_type[13]["en"]:
+                        mus_box += i.Box_office
+                        mus_sor += i.IMDB
+                        n += 1
+                    elif needs == d_type[14]["en"]:
+                        fam_box += i.Box_office
+                        fam_sor += i.IMDB
+                        o += 1
+                    elif needs == d_type[15]["en"]:
+                        cri_box += i.Box_office
+                        cri_sor += i.IMDB
+                        p += 1
+        year_data['year'] = year
+        year_data['com_box'] = com_box/a
 
     return jsonify(table_massage)
 

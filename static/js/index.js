@@ -13,7 +13,7 @@ d3.json("/data/", function (error, type_data) {
             type_like[i] = type_data[i].like;
             i++;
         }
-        console.log(type_like);
+        // console.log(type_like);
         // var fill = d3.scale.category20();
 
         var cloud = d3.layout.cloud()
