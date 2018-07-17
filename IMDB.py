@@ -116,6 +116,14 @@ def massage():
         elif int(year.years) < 2000:
             continue
         years.append(int(year.years))
+    years = list(set(years))
+    years.sort()
+    for year in years:
+        for i in data:
+            if year == i.years:
+                need = i.type.split("|")
+                for needs in need:
+                    if needs == d_type:
 
     return jsonify(table_massage)
 
@@ -135,7 +143,11 @@ def tabs():
     else:
         table_massage['name'] = request.form.get('name')
         table_massage['director'] = request.form.get('director')
-        table_massage['act'] = request.form.get('act').split("/")
+        table_massage['act1'] = request.form.get('act1')
+        table_massage['act2'] = request.form.get('act2')
+        table_massage['act3'] = request.form.get('act3')
+        table_massage['time'] = request.form.get('time')
+        table_massage['like'] = request.form.get('like')
         table_massage['type'] = request.form.get('type').split()
         table_massage['invest'] = request.form.get('invest')
         table_massage['key_word'] = request.form.get('key_words').split()
@@ -144,9 +156,9 @@ def tabs():
         data = xunlian.query.all()
         dir = xunlian.query.filter(xunlian.director == table_massage['director']).all()
         dir_like = act1_like = act2_like = act3_like = 0
-        act1 = xunlian.query.filter(xunlian.act_one == table_massage['act'][0]).all()
-        act2 = xunlian.query.filter(xunlian.act_two == table_massage['act'][1]).all()
-        act3 = xunlian.query.filter(xunlian.act_three == table_massage['act'][2]).all()
+        act1 = xunlian.query.filter(xunlian.act_one == table_massage['act1']).all()
+        act2 = xunlian.query.filter(xunlian.act_two == table_massage['act2']).all()
+        act3 = xunlian.query.filter(xunlian.act_three == table_massage['act3']).all()
         # i = 0
         dir_like_l = []
         act1_like_l = []

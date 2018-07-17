@@ -13,21 +13,21 @@ d3.json("/data/", function (error, type_data) {
             type_like[i] = type_data[i].like;
             i++;
         }
-        // console.log(type);
+        console.log(type_like);
         // var fill = d3.scale.category20();
 
         var cloud = d3.layout.cloud()
             .size([600, 400])  // 宽高
             .words(type.map(function (d, i) {
-                return {text: d, size: type_like[i] % 50 + 30};
+                return {text: d, size: type_like[i] / 5000 + 30};
             }))  // 数据
             .padding(5)  // 内间距
             .rotate(function () {
-                return ~~(Math.random() * 2);
+                return ~~(Math.random() * 2) * 90;
             })
             .font("Impact")
-            .fontSize(function (d) {
-                return d.size;
+            .fontSize(function (d,i) {
+                return type_like[i] % 50 + 30;
             })
             .on("end", draw);
 
