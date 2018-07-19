@@ -63,10 +63,10 @@ d3.json("/data/", function (error, type_data) {
         }
     }
 );
-d3.json('/massage/',function (error,massage) {
+d3.json('/massage/',function (error,message) {
     if (error)
         console.log(error);
-    console.log(massage);
+    console.log(message);
     // i =0;
     // while (massage.type) {
     //     console.log(massage.type[i]);
