@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
-from langdetect import detect
 import config
+import langid
 from models import xunlian
 from exts import db
 
@@ -47,36 +47,52 @@ def data():
             count = types.pop()
             if count == d_type[0]["en"]:
                 d_type[0]["like"] += like
+                d_type[0]["like"] /= 2
             elif count == d_type[1]["en"]:
                 d_type[1]["like"] += like
+                d_type[1]["like"] /= 2
             elif count == d_type[2]["en"]:
                 d_type[2]["like"] += like
+                d_type[2]["like"] /= 2
             elif count == d_type[3]["en"]:
                 d_type[3]["like"] += like
+                d_type[3]["like"] /= 2
             elif count == d_type[4]["en"]:
                 d_type[4]["like"] += like
+                d_type[4]["like"] /= 2
             elif count == d_type[5]["en"]:
                 d_type[5]["like"] += like
+                d_type[5]["like"] /= 2
             elif count == d_type[6]["en"]:
                 d_type[6]["like"] += like
+                d_type[6]["like"] /= 2
             elif count == d_type[7]["en"]:
                 d_type[7]["like"] += like
+                d_type[7]["like"] /= 2
             elif count == d_type[8]["en"]:
                 d_type[8]["like"] += like
+                d_type[8]["like"] /= 2
             elif count == d_type[9]["en"]:
                 d_type[9]["like"] += like
+                d_type[9]["like"] /= 2
             elif count == d_type[10]["en"]:
                 d_type[10]["like"] += like
+                d_type[10]["like"] /= 2
             elif count == d_type[11]["en"]:
                 d_type[11]["like"] += like
+                d_type[11]["like"] /= 2
             elif count == d_type[12]["en"]:
                 d_type[12]["like"] += like
+                d_type[12]["like"] /= 2
             elif count == d_type[13]["en"]:
                 d_type[13]["like"] += like
+                d_type[13]["like"] /= 2
             elif count == d_type[14]["en"]:
                 d_type[14]["like"] += like
+                d_type[14]["like"] /= 2
             elif count == d_type[15]["en"]:
                 d_type[15]["like"] += like
+                d_type[15]["like"] /= 2
 
     # d_type[0]["like"] = com
     # fin = xunlian.query.all()
@@ -101,11 +117,14 @@ def massage():
     # 中英文翻译转换
     # print(table_massage)
     for types in table_massage['type']:
-        if detect(types) != 'zh-cn':
-            for i in d_type:
+        if langid.classify(types)[0] != 'zh':
+            for i in d_type[0:15]:
                 if types == i['en']:
                     types = i['zh']
                     a.append(types)
+        else:
+            a.append(types)
+
     table_massage['type'] = a
 
     data = xunlian.query.all()

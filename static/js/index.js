@@ -2,32 +2,45 @@ d3.json("/data/", function (error, type_data) {
         var i = 0;
         var type = [];
         var type_like = [];
-        var color = ['#FFCC99', '#FFCC00', '#006633', '#99CC33', '#3399CC', '#805615', '#666666', '#FF9999', '#FF9900', '#339999', '#000000', '#CC3333', '#99CCFF', ' #663399', '#9999CC', '#CCCC33']
+        var color = ['#FFCC99', '#FFCC00', '#006633', '#99CC33', '#3399CC', '#805615', '#666666', '#FF9999', '#FF9900', '#339999', '#000000', '#CC3333', '#99CCFF', ' #663399', '#9999CC', '#CCCC33'];
+        var t_color = [];
         if (error)
             console.log(error);
-        console.log(type_data);
+        // console.log(type_data[16]);
         // console.log(type_data[0].zh);
         while (i < 16) {
             // console.log(tabs[i].zh);
             type[i] = type_data[i].zh;
             type_like[i] = type_data[i].like;
+            t_color[i] = "#B3B6B6";
             i++;
         }
-        // console.log(type_like);
+        for (var a = 0;a<type_data[16].length;a++){
+            var p =0;
+            while (p<type.length){
+                if (type_data[16][a] == type[p]){
+                    t_color[p] = color[p];
+                    }
+            }
+        }
+        // console.log(t_color);
         // var fill = d3.scale.category20();
+        // for (var a= 0;a<color.length;a++){
+        //
+        // }
 
         var cloud = d3.layout.cloud()
             .size([600, 400])  // 宽高
             .words(type.map(function (d, i) {
-                return {text: d, size: type_like[i] / 5000 + 30};
+                return {text: d, size: (type_like[i] / 10) + Math.random() *90};
             }))  // 数据
             .padding(5)  // 内间距
             .rotate(function () {
                 return ~~(Math.random() * 2) * 90;
             })
             .font("Impact")
-            .fontSize(function (d,i) {
-                return type_like[i] % 50 + 30;
+            .fontSize(function (d) {
+                return d.size;
             })
             .on("end", draw);
 
@@ -48,12 +61,12 @@ d3.json("/data/", function (error, type_data) {
                     return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
                 })
                 .style("fill", function (d, i) {
-                    return color[i];
+                     return t_color[i];
                 })
                 .transition()
                 .duration(1000)
                 .ease("linear")
-                .style("font-size", function (d) {
+                .style("font-size", function (d, i) {
                     return d.size + "px";
                 })
                 .style("font-family", "Impact")
@@ -63,7 +76,7 @@ d3.json("/data/", function (error, type_data) {
         }
     }
 );
-d3.json('/massage/',function (error,message) {
+d3.json('/massage/', function (error, message) {
     if (error)
         console.log(error);
     console.log(message);
