@@ -128,6 +128,7 @@ def massage():
     table_massage['type'] = a
 
     data = xunlian.query.all()
+    print(data)
     for year in data:
         if year.years == "NULL":
             continue

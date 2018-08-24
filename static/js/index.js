@@ -2,7 +2,7 @@ d3.json("/data/", function (error, type_data) {
         var i = 0;
         var type = [];
         var type_like = [];
-        var color = ['#FFCC99', '#FFCC00', '#006633', '#99CC33', '#3399CC', '#805615', '#666666', '#FF9999', '#FF9900', '#339999', '#000000', '#CC3333', '#99CCFF', ' #663399', '#9999CC', '#CCCC33'];
+        var color = ['#CDAA7D', '#178BCA', '#008B00', '#9ACD32', '#8EE5EE', '#AA7D39', '#696969', '#DB7093', '#FF8C00', '#20B2AA', '#000000', '#CD2626', '#FFD700', ' #9932CC', '#CD96CD', '#CCCC33'];
         var t_color = [];
         if (error)
             console.log(error);
