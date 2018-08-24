@@ -128,7 +128,6 @@ def massage():
     table_massage['type'] = a
 
     data = xunlian.query.all()
-    print(data)
     for year in data:
         if year.years == "NULL":
             continue
@@ -222,7 +221,6 @@ def massage():
                         cri_box += int(i.Box_office)
                         cri_sor += float(i.IMDB)
                         p += 1
-        # print(a)
         if g == 0:
             g = 1
         year_data['year'] = year
