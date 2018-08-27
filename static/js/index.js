@@ -12,22 +12,22 @@ d3.json("/data/", function (error, type_data) {
             // console.log(tabs[i].zh);
             type[i] = type_data[i].zh;
             type_like[i] = type_data[i].like;
+            t_color[i] = "#B3B6B6";
             i++;
         }
-        for (var a = 0;a<type_data[16].length;a++){
-            var p =0;
-            while (p<type.length){
-                console.log(type_data[16][a]);
-                console.log(type[p]);
-                if (type_data[16][a] == type[p]){
+        for (var a = 0; a < type_data[16].length; a++) {
+            var p = 0;
+            while (p < type.length) {
+                // console.log(type_data[16][a]);
+                // console.log(type[p]);
+                if (type[p] == type_data[16][a]) {
                     t_color[p] = color[p];
-                    }else {
-                    t_color[i] = "#B3B6B6";
                 }
                 p++;
             }
         }
-        // console.log(t_color);
+        console.log(type);
+        console.log(t_color);
         // var fill = d3.scale.category20();
         // for (var a= 0;a<color.length;a++){
         //
@@ -36,7 +36,7 @@ d3.json("/data/", function (error, type_data) {
         var cloud = d3.layout.cloud()
             .size([600, 400])  // 宽高
             .words(type.map(function (d, i) {
-                return {text: d, size: (type_like[i] / 10) + Math.random() *90};
+                return {text: d, size: (type_like[i] / 3) + 0.1 * 90};
             }))  // 数据
             .padding(5)  // 内间距
             .rotate(function () {
@@ -65,12 +65,12 @@ d3.json("/data/", function (error, type_data) {
                     return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
                 })
                 .style("fill", function (d, i) {
-                     return color[i];
+                    return t_color[i];
                 })
                 .transition()
                 .duration(1000)
                 .ease("linear")
-                .style("font-size", function (d, i) {
+                .style("font-size", function (d) {
                     return d.size + "px";
                 })
                 .style("font-family", "Impact")
