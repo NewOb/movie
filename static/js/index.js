@@ -12,15 +12,19 @@ d3.json("/data/", function (error, type_data) {
             // console.log(tabs[i].zh);
             type[i] = type_data[i].zh;
             type_like[i] = type_data[i].like;
-            t_color[i] = "#B3B6B6";
             i++;
         }
         for (var a = 0;a<type_data[16].length;a++){
             var p =0;
             while (p<type.length){
+                console.log(type_data[16][a]);
+                console.log(type[p]);
                 if (type_data[16][a] == type[p]){
                     t_color[p] = color[p];
-                    }
+                    }else {
+                    t_color[i] = "#B3B6B6";
+                }
+                p++;
             }
         }
         // console.log(t_color);
@@ -61,7 +65,7 @@ d3.json("/data/", function (error, type_data) {
                     return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
                 })
                 .style("fill", function (d, i) {
-                     return t_color[i];
+                     return color[i];
                 })
                 .transition()
                 .duration(1000)
@@ -76,13 +80,3 @@ d3.json("/data/", function (error, type_data) {
         }
     }
 );
-d3.json('/massage/', function (error, message) {
-    if (error)
-        console.log(error);
-    console.log(message);
-    // i =0;
-    // while (massage.type) {
-    //     console.log(massage.type[i]);
-    //     i++;
-    // }
-});
