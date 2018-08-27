@@ -1,0 +1,110 @@
+d3.json("/data/", function (error, money_tp) {
+    if (error)
+        console.log(error);
+    console.log(money_tp);
+    d3.json("/massage/", function (error, enter_ty) {
+        if (error)
+            console.log(error);
+        console.log(enter_ty);
+        var len = enter_ty.type.length;
+        var next = [];
+        var i = 0, p = 0;
+        test = [350000000, 300000000, 110000000];
+        grade = [6.5, 4.3, 5.8];
+        circlecolor = [];
+        wavetextcolor = [];
+        wavecolor = [];
+        textcolor = [];
+        var config1 = liquidFillGaugeDefaultSettings();
+        var config2 = liquidFillGaugeDefaultSettings();
+
+        function action() {
+            if (i < len) {
+                for (var k = 0; k < 16; k++) {
+                    if (enter_ty.type[i] == money_tp[k].zh) {
+                        next[p] = k;
+                        textcolor[p] = money_tp[k]['textColor'];
+                        circlecolor[p] = money_tp[k]['circleColor'];
+                        wavetextcolor[p] = money_tp[k]['waveTextColor'];
+                        wavecolor[p] = money_tp[k]['waveColor'];
+                        p++;
+                    }
+                }
+                p = 0;
+                for (var x = 0; x < next.length; x++) {
+                    config1.minValue = money_tp[next[x]]['money_min'];
+                    config1.maxValue = money_tp[next[x]]['money_max'];
+                    config1.circleColor = circlecolor[i];
+                    config1.textColor = textcolor[i];
+                    config1.waveTextColor = wavetextcolor[i];
+                    config1.waveColor = wavecolor[i];
+                    config2.minValue = 0;
+                    config2.maxValue = 10;
+                    config2.circleColor = circlecolor[i];
+                    config2.textColor = textcolor[i];
+                    config2.waveTextColor = wavetextcolor[i];
+                    config2.waveColor = wavecolor[i];
+                    if (p < next.length - 1) {
+                        config1.nexttextColor = textcolor[p + 1];
+                        config1.nextwaveTextColor = wavetextcolor[p + 1];
+                        config1.nextwaveColor = wavecolor[p + 1];
+                        config1.nextcircleColor = circlecolor[p + 1];
+                        config2.nexttextColor = textcolor[p + 1];
+                        config2.nextwaveTextColor = wavetextcolor[p + 1];
+                        config2.nextwaveColor = wavecolor[p + 1];
+                        config2.nextcircleColor = circlecolor[p + 1];
+                    }
+                    else {
+                        config1.nexttextColor = textcolor[0];
+                        config1.nextwaveTextColor = wavetextcolor[0];
+                        config1.nextwaveColor = wavecolor[0];
+                        config1.nextcircleColor = circlecolor[0];
+                        config2.nexttextColor = textcolor[0];
+                        config2.nextwaveTextColor = wavetextcolor[0];
+                        config2.nextwaveColor = wavecolor[0];
+                        config2.nextcircleColor = circlecolor[0];
+                    }
+                    // console.log(config2.nextwaveColor);
+                    config1.circleThickness = 0.1;   //外圆的厚度作为其半径的一个百分比。
+                    config1.circleFillGap = 0.1;
+                    config1.textVertPosition = 0.8;   // 显示波圈的百分比文本的高度。0＝底部，1＝顶部
+                    config1.waveAnimateTime = 3000;    //一个完整的波进入波圈的毫秒的时间量。
+                    config1.waveHeight = 0.3;
+                    config1.waveCount = 1;
+                    config1.value = test[i];
+                    config2.circleThickness = 0.1;   //外圆的厚度作为其半径的一个百分比。
+                    config2.circleFillGap = 0.1;
+                    config2.textVertPosition = 0.8;   // 显示波圈的百分比文本的高度。0＝底部，1＝顶部
+                    config2.waveAnimateTime = 3000;    //一个完整的波进入波圈的毫秒的时间量。
+                    config2.waveHeight = 0.3;
+                    config2.waveCount = 1;
+                    config2.value = grade[i];
+                }
+            }
+            p++;
+            if (p == len - 1) {
+                p = 0;
+            }
+            i++;
+            if (i == len) {
+                i = 0;
+            }
+        }
+
+        //调用函数开始画图
+        action();
+        var chart = loadLiquidFillGauge("fillgauge1", config1.value, config1);
+        var chart2 = loadLiquidFillGauge("fillgauge2", config2.value, config2);
+        setInterval(function () {
+            action();
+            chart.update(config1.nextwaveColor);
+            chart.update(config1.circleColor);
+            chart.update(config1.textColor);
+            chart.update(config1.value);
+            chart2.update(config2.nextwaveColor);
+            chart2.update(config2.circleColor);
+            chart2.update(config2.textColor);
+            chart2.update(config2.value);
+        }, 5000);    //时间设置
+    })
+});
