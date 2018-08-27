@@ -1,4 +1,4 @@
-d3.json("/data/", function (error, type_data) {
+d3.json("/l_data/", function (error, type_data) {
         var i = 0;
         var type = [];
         var type_like = [];

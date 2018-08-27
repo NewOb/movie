@@ -3,16 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>电影票房及评分预测系统</title>
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Play:700,400' type='text/css'>
+    <link rel="stylesheet" href="{{url_for('static',filename = 'css/gauge.css}}">
+    <link rel="stylesheet" href="{{url_for('static',filename = 'css/ball.css}}">
 </head>
 <body>
 <div id="title"></div>
 <div id="main_chart"></div>
 <div id="cloud"></div>
-<div id="whatever"></div>
-<div id="ball"></div>
+<div id="gauge"></div>
+<div id="ball">
+    <svg id="fillgauge1" width="19%" height="200"></svg>
+    <svg id="fillgauge2" width="19%" height="200"></svg>
+    </br>
+    <text class="piaofang">票房</text>
+    <text class="pingfen">评分</text>
+</div>
 </body>
+<script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerEvents/pointerevents.js"></script>
+<script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerGestures/pointergestures.js"></script>
+<script type="text/javascript" src="http://iop.io/js/iopctrl.js"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
 <script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="{{url_for('static',filename = 'js/ball.js')}}"></script>
+<script src="{{url_for('static',filename = 'js/gauge.js')}}"></script>
+<script src="{{url_for('static',filename = 'js/d_ball.js')}}"></script>
 <script src="{{url_for('static',filename = 'js/d3.layout.cloud.js')}}"></script>
 <script src="{{url_for('static',filename = 'js/index.js')}}"></script>
 </html>

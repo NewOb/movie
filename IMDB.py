@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 import config
+from imdb_score_model import Create_score_model,Type_conversion
 import langid
 from models import xunlian
 from exts import db
@@ -9,7 +10,9 @@ app = Flask(__name__)
 app.config.from_object(config)
 db.init_app(app)
 
-d_type = [{'en': 'Comedy', 'zh': '喜剧', 'like': 0},
+table_massage = {}
+
+l_type = [{'en': 'Comedy', 'zh': '喜剧', 'like': 0},
           {'en': 'Adventure', 'zh': '冒险', 'like': 0},
           {'en': 'Fantasy', 'zh': '幻想', 'like': 0},
           {'en': 'Mystery', 'zh': '悬念', 'like': 0},
@@ -27,9 +30,45 @@ d_type = [{'en': 'Comedy', 'zh': '喜剧', 'like': 0},
           {'en': 'Crime', 'zh': '犯罪', 'like': 0},
           ]
 
+d_type = [
+          {'en': 'Action', 'zh': '动作', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#CD2626',
+          'textColor': '#8B1A1A', 'waveTextColor': '#FFFAFA', 'waveColor': '#CD2626'},
+          {'en': 'Adventure', 'zh': '冒险', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#CDAA7D',
+           'textColor': '#8B7E66', 'waveTextColor': '#EED8AE', 'waveColor': '#CDAA7D'},
+          {'en': 'Comedy', 'zh': '喜剧', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#178BCA',
+           'textColor': '#045681', 'waveTextColor': '#A4DBf8', 'waveColor': '#178BCA'},
+          {'en': 'Fantasy', 'zh': '幻想', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#008B00',
+           'textColor': '#006400', 'waveTextColor': '#9AFF9A', 'waveColor': '#008B00'},
+          {'en': 'Mystery', 'zh': '悬念', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#9ACD32',
+           'textColor': '#458B00', 'waveTextColor': '#FFFFE0', 'waveColor': '#9ACD32'},
+          {'en': 'Thriller', 'zh': '惊悚', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#8EE5EE',
+           'textColor': '#00868B', 'waveTextColor': '#FFFAFA', 'waveColor': '#8EE5EE'},
+          {'en': 'Documentary', 'zh': '记录', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#AA7D39',
+           'textColor': '#8B4500', 'waveTextColor': '#D4AB6A', 'waveColor': '#AA7D39'},
+          {'en': 'War', 'zh': '战争', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#696969',
+           'textColor': '#000000', 'waveTextColor': '#FFFAFA', 'waveColor': '#696969'},
+          {'en': 'Western', 'zh': '西部', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#DB7093',
+           'textColor': '#B03060', 'waveTextColor': '#FFE4E1', 'waveColor': '#DB7093'},
+          {'en': 'Romance', 'zh': '爱情', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#FF8C00',
+           'textColor': '#CD661D', 'waveTextColor': '#FFDEAD', 'waveColor': '#FF8C00'},
+          {'en': 'Drama', 'zh': '剧情', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#20B2AA',
+           'textColor': '#668B8B', 'waveTextColor': '#B0E0E6', 'waveColor': '#20B2AA'},
+          {'en': 'Horror', 'zh': '恐怖', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#000000',
+           'textColor': '#000000', 'waveTextColor': '#BEBEBE', 'waveColor': '#000000'},
+          {'en': 'Sci-Fi', 'zh': '科幻', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#FFD700',
+           'textColor': '#8B7500', 'waveTextColor': '#FFFAFA', 'waveColor': '#FFD700'},
+          {'en': 'Music', 'zh': '音乐', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#9932CC',
+           'textColor': '#551A8B', 'waveTextColor': '#D8BFD8', 'waveColor': '#9932CC'},
+          {'en': 'Family', 'zh': '家庭', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#CD96CD',
+           'textColor': '#68228B', 'waveTextColor': '#FFFAFA', 'waveColor': '#CD96CD'},
+          {'en': 'Crime', 'zh': '犯罪', 'like': 0, 'money_max': 0, 'money_min': 0, 'circleColor': '#CCCC33',
+           'textColor': '#556B2F', 'waveTextColor': '#FFFAFA', 'waveColor': '#CCCC33'},
+          ]
 
-@app.route('/data/', methods=['GET'])
-def data():
+list = []
+
+@app.route('/l_data/', methods=['GET'])
+def l_data():
     # com = adv = fan = mys = thr = doc = war = wes = rom = dra = hor = act = sci = mus = fam = cri = 0
     # mytype = []
     ALL = xunlian.query.all()
@@ -45,54 +84,54 @@ def data():
         # print(repr(like))
         while len(types):
             count = types.pop()
-            if count == d_type[0]["en"]:
-                d_type[0]["like"] += like
-                d_type[0]["like"] /= 2
-            elif count == d_type[1]["en"]:
-                d_type[1]["like"] += like
-                d_type[1]["like"] /= 2
-            elif count == d_type[2]["en"]:
-                d_type[2]["like"] += like
-                d_type[2]["like"] /= 2
-            elif count == d_type[3]["en"]:
-                d_type[3]["like"] += like
-                d_type[3]["like"] /= 2
-            elif count == d_type[4]["en"]:
-                d_type[4]["like"] += like
-                d_type[4]["like"] /= 2
-            elif count == d_type[5]["en"]:
-                d_type[5]["like"] += like
-                d_type[5]["like"] /= 2
-            elif count == d_type[6]["en"]:
-                d_type[6]["like"] += like
-                d_type[6]["like"] /= 2
-            elif count == d_type[7]["en"]:
-                d_type[7]["like"] += like
-                d_type[7]["like"] /= 2
-            elif count == d_type[8]["en"]:
-                d_type[8]["like"] += like
-                d_type[8]["like"] /= 2
-            elif count == d_type[9]["en"]:
-                d_type[9]["like"] += like
-                d_type[9]["like"] /= 2
-            elif count == d_type[10]["en"]:
-                d_type[10]["like"] += like
-                d_type[10]["like"] /= 2
-            elif count == d_type[11]["en"]:
-                d_type[11]["like"] += like
-                d_type[11]["like"] /= 2
-            elif count == d_type[12]["en"]:
-                d_type[12]["like"] += like
-                d_type[12]["like"] /= 2
-            elif count == d_type[13]["en"]:
-                d_type[13]["like"] += like
-                d_type[13]["like"] /= 2
-            elif count == d_type[14]["en"]:
-                d_type[14]["like"] += like
-                d_type[14]["like"] /= 2
-            elif count == d_type[15]["en"]:
-                d_type[15]["like"] += like
-                d_type[15]["like"] /= 2
+            if count == l_type[0]["en"]:
+                l_type[0]["like"] += like
+                l_type[0]["like"] /= 2
+            elif count == l_type[1]["en"]:
+                l_type[1]["like"] += like
+                l_type[1]["like"] /= 2
+            elif count == l_type[2]["en"]:
+                l_type[2]["like"] += like
+                l_type[2]["like"] /= 2
+            elif count == l_type[3]["en"]:
+                l_type[3]["like"] += like
+                l_type[3]["like"] /= 2
+            elif count == l_type[4]["en"]:
+                l_type[4]["like"] += like
+                l_type[4]["like"] /= 2
+            elif count == l_type[5]["en"]:
+                l_type[5]["like"] += like
+                l_type[5]["like"] /= 2
+            elif count == l_type[6]["en"]:
+                l_type[6]["like"] += like
+                l_type[6]["like"] /= 2
+            elif count == l_type[7]["en"]:
+                l_type[7]["like"] += like
+                l_type[7]["like"] /= 2
+            elif count == l_type[8]["en"]:
+                l_type[8]["like"] += like
+                l_type[8]["like"] /= 2
+            elif count == l_type[9]["en"]:
+                l_type[9]["like"] += like
+                l_type[9]["like"] /= 2
+            elif count == l_type[10]["en"]:
+                l_type[10]["like"] += like
+                l_type[10]["like"] /= 2
+            elif count == l_type[11]["en"]:
+                l_type[11]["like"] += like
+                l_type[11]["like"] /= 2
+            elif count == l_type[12]["en"]:
+                l_type[12]["like"] += like
+                l_type[12]["like"] /= 2
+            elif count == l_type[13]["en"]:
+                l_type[13]["like"] += like
+                l_type[13]["like"] /= 2
+            elif count == l_type[14]["en"]:
+                l_type[14]["like"] += like
+                l_type[14]["like"] /= 2
+            elif count == l_type[15]["en"]:
+                l_type[15]["like"] += like
+                l_type[15]["like"] /= 2
 
     # d_type[0]["like"] = com
     # fin = xunlian.query.all()
@@ -105,171 +144,144 @@ def data():
     #     all_data = {}
     # print(table_massage)
     # print(table_massage['type'])
-    d_type.append(table_massage['type'])
+    l_type.append(table_massage['type'])
     # print(jsonify(d_type[0]['en']))
+    return jsonify(l_type)
+
+
+@app.route('/data/', methods=['GET'])
+def data():
+    ALL = xunlian.query.all()
+    money_adv= []
+    money_com=[]
+    money_fan=[]
+    money_mys=[]
+    money_thr=[]
+    money_doc=[]
+    money_war=[]
+    money_wes=[]
+    money_rom=[]
+    money_dra=[]
+    money_hor=[]
+    money_act=[]
+    money_sci=[]
+    money_mus=[]
+    money_fam=[]
+    money_cri=[]
+
+    while len(ALL) > 0:
+        dataset = ALL.pop()
+        types = dataset.type.split("|")    #字段拆分
+        like = dataset.like_all
+        money=dataset.Box_office
+        if like == '':
+            like = 0
+
+        if money=='':
+            money=0
+        # print(like)
+        like = int(like)
+        money=int(money)
+        # print(type(like))
+        # print(repr(like))
+        #print(money)
+        while len(types):
+            count = types.pop()
+            if count == d_type[0]["en"]:
+                d_type[0]["like"] += like
+                money_adv.append(money)
+            elif count == d_type[1]["en"]:
+                d_type[1]["like"] += like
+                money_com.append(money)
+            elif count == d_type[2]["en"]:
+                d_type[2]["like"] += like
+                money_fan.append(money)
+            elif count == d_type[3]["en"]:
+                d_type[3]["like"] += like
+                money_mys.append(money)
+            elif count == d_type[4]["en"]:
+                d_type[4]["like"] += like
+                money_thr.append(money)
+            elif count == d_type[5]["en"]:
+                d_type[5]["like"] += like
+                money_doc.append(money)
+            elif count == d_type[6]["en"]:
+                d_type[6]["like"] += like
+                money_war.append(money)
+            elif count == d_type[7]["en"]:
+                d_type[7]["like"] += like
+                money_wes.append(money)
+            elif count == d_type[8]["en"]:
+                d_type[8]["like"] += like
+                money_rom.append(money)
+            elif count == d_type[9]["en"]:
+                d_type[9]["like"] += like
+                money_dra.append(money)
+            elif count == d_type[10]["en"]:
+                d_type[10]["like"] += like
+                money_hor.append(money)
+            elif count == d_type[11]["en"]:
+                d_type[11]["like"] += like
+                money_act.append(money)
+            elif count == d_type[12]["en"]:
+                d_type[12]["like"] += like
+                money_sci.append(money)
+            elif count == d_type[13]["en"]:
+                d_type[13]["like"] += like
+                money_mus.append(money)
+            elif count == d_type[14]["en"]:
+                d_type[14]["like"] += like
+                money_fam.append(money)
+            elif count == d_type[15]["en"]:
+                d_type[15]["like"] += like
+                money_cri.append(money)
+
+    #取各种类型中的票房最大值和最小值
+    d_type[0]['money_max']=max(money_adv)
+    d_type[1]['money_max'] = max(money_com)
+    d_type[2]['money_max'] = max(money_fan)
+    d_type[3]['money_max'] = max(money_mys)
+    d_type[4]['money_max'] = max(money_thr)
+    d_type[5]['money_max'] = max(money_doc)
+    d_type[6]['money_max'] = max(money_war)
+    d_type[7]['money_max'] = max(money_wes)
+    d_type[8]['money_max'] = max(money_rom)
+    d_type[9]['money_max'] = max(money_dra)
+    d_type[10]['money_max'] = max(money_hor)
+    d_type[11]['money_max'] = max(money_act)
+    d_type[12]['money_max'] = max(money_sci)
+    d_type[13]['money_max'] = max(money_mus)
+    d_type[14]['money_max'] = max(money_fam)
+    d_type[15]['money_max'] = max(money_cri)
+
+    d_type[0]['money_min'] = min(money_adv)
+    d_type[1]['money_min'] = min(money_com)
+    d_type[2]['money_min'] = min(money_fan)
+    d_type[3]['money_min'] = min(money_mys)
+    d_type[4]['money_min'] = min(money_thr)
+    d_type[5]['money_min'] = min(money_doc)
+    d_type[6]['money_min'] = min(money_war)
+    d_type[7]['money_min'] = min(money_wes)
+    d_type[8]['money_min'] = min(money_rom)
+    d_type[9]['money_min'] = min(money_dra)
+    d_type[10]['money_min'] = min(money_hor)
+    d_type[11]['money_min'] = min(money_act)
+    d_type[12]['money_min'] = min(money_sci)
+    d_type[13]['money_min'] = min(money_mus)
+    d_type[14]['money_min'] = min(money_fam)
+    d_type[15]['money_min'] = min(money_cri)
+    #print(table_massage)
     return jsonify(d_type)
 
-
-# @app.route('/massage/')
-# def massage():
-#     message = []
-#     a = []
-#     years = []
-#     # 中英文翻译转换
-#     # print(table_massage)
-#     for types in table_massage['type']:
-#         if langid.classify(types)[0] != 'zh':
-#             for i in d_type[0:15]:
-#                 if types == i['en']:
-#                     types = i['zh']
-#                     a.append(types)
-#         else:
-#             a.append(types)
-#
-#     table_massage['type'] = a
-#
-#     data = xunlian.query.all()
-#     for year in data:
-#         if year.years == "NULL":
-#             continue
-#         elif year.years == '':
-#             continue
-#         elif year.years == "0":
-#             continue
-#         elif int(year.years) < 2000:
-#             continue
-#         years.append(int(year.years))
-#     years = list(set(years))
-#     years.sort()
-#     com_box = com_sor = adv_box = adv_sor = fan_box = fan_sor = mys_box = mys_sor = thr_box = thr_sor = doc_box = doc_sor = war_box = war_sor = wes_box = wes_sor = rom_box = rom_sor = dra_box = dra_sor = hor_box = hor_sor = act_box = act_sor = sci_box = sci_sor = mus_box = mus_sor = fam_box = fam_sor = cri_box = cri_sor = 0
-#     a = b = c = d = e = f = g = h = i1 = j = k = l = m = n = o = p = 0
-#     year_data = {}
-#     need_massage = []
-#     for year in years:
-#         for i in data:
-#             if i.years == '':
-#                 i.years = 0
-#             if int(i.years) == year:
-#                 need = i.type.split("|")
-#                 for needs in need:
-#                     # pass
-#                     if i.Box_office == '':
-#                         continue
-#                     if i.IMDB == '':
-#                         continue
-#                     if needs == d_type[0]["en"]:
-#                         com_box += int(i.Box_office)
-#                         com_sor += float(i.IMDB)
-#                         a += 1
-#                         # print(a)
-#                     elif needs == d_type[1]["en"]:
-#                         adv_box += int(i.Box_office)
-#                         adv_sor += float(i.IMDB)
-#                         b += 1
-#                     elif needs == d_type[2]["en"]:
-#                         fan_box += int(i.Box_office)
-#                         fan_sor += float(i.IMDB)
-#                         c += 1
-#                     elif needs == d_type[3]["en"]:
-#                         mys_box += int(i.Box_office)
-#                         mys_sor += float(i.IMDB)
-#                         d += 1
-#                     elif needs == d_type[4]["en"]:
-#                         thr_box += int(i.Box_office)
-#                         thr_sor += float(i.IMDB)
-#                         e += 1
-#                     elif needs == d_type[5]["en"]:
-#                         doc_box += int(i.Box_office)
-#                         doc_sor += float(i.IMDB)
-#                         f += 1
-#                     elif needs == d_type[6]["en"]:
-#                         war_box += int(i.Box_office)
-#                         war_sor += float(i.IMDB)
-#                         g += 1
-#                     elif needs == d_type[7]["en"]:
-#                         wes_box += int(i.Box_office)
-#                         wes_sor += float(i.IMDB)
-#                         h += 1
-#                     elif needs == d_type[8]["en"]:
-#                         rom_box += int(i.Box_office)
-#                         rom_sor += float(i.IMDB)
-#                         i1 += 1
-#                     elif needs == d_type[9]["en"]:
-#                         dra_box += int(i.Box_office)
-#                         dra_sor += float(i.IMDB)
-#                         j += 1
-#                     elif needs == d_type[10]["en"]:
-#                         hor_box += int(i.Box_office)
-#                         hor_sor += float(i.IMDB)
-#                         k += 1
-#                     elif needs == d_type[11]["en"]:
-#                         act_box += int(i.Box_office)
-#                         act_sor += float(i.IMDB)
-#                         l += 1
-#                     elif needs == d_type[12]["en"]:
-#                         sci_box += int(i.Box_office)
-#                         sci_sor += float(i.IMDB)
-#                         m += 1
-#                     elif needs == d_type[13]["en"]:
-#                         mus_box += int(i.Box_office)
-#                         mus_sor += float(i.IMDB)
-#                         n += 1
-#                     elif needs == d_type[14]["en"]:
-#                         fam_box += int(i.Box_office)
-#                         fam_sor += float(i.IMDB)
-#                         o += 1
-#                     elif needs == d_type[15]["en"]:
-#                         cri_box += int(i.Box_office)
-#                         cri_sor += float(i.IMDB)
-#                         p += 1
-#         if g == 0:
-#             g = 1
-#         year_data['year'] = year
-#         year_data['com_box'] = com_box / a
-#         year_data['com_sor'] = com_sor / a
-#         year_data['adv_box'] = adv_box / b
-#         year_data['adv_sor'] = adv_sor / b
-#         year_data['fan_box'] = fan_box / c
-#         year_data['fan_sor'] = fan_sor / c
-#         year_data['mys_box'] = mys_box / d
-#         year_data['mys_sor'] = mys_sor / d
-#         year_data['thr_box'] = thr_box / e
-#         year_data['thr_sor'] = thr_sor / e
-#         year_data['doc_box'] = doc_box / f
-#         year_data['doc_sor'] = doc_sor / f
-#         year_data['war_box'] = war_box / g
-#         year_data['war_sor'] = war_sor / g
-#         year_data['wes_box'] = wes_box / h
-#         year_data['wes_sor'] = wes_sor / h
-#         year_data['rom_box'] = rom_box / i1
-#         year_data['rom_sor'] = rom_sor / i1
-#         year_data['dra_box'] = dra_box / j
-#         year_data['dra_sor'] = dra_sor / j
-#         year_data['hor_box'] = hor_box / k
-#         year_data['hor_sor'] = hor_sor / k
-#         year_data['act_box'] = act_box / l
-#         year_data['act_sor'] = act_sor / l
-#         year_data['sci_box'] = sci_box / m
-#         year_data['sci_sor'] = sci_sor / m
-#         year_data['mus_box'] = mus_box / n
-#         year_data['mus_sor'] = mus_sor / n
-#         year_data['fam_box'] = fam_box / o
-#         year_data['fam_sor'] = fam_sor / o
-#         year_data['cri_box'] = cri_box / p
-#         year_data['cri_sor'] = cri_sor / p
-#         need_massage.append(year_data)
-#         year_data = {}
-#     message.append(table_massage)
-#     message.append(need_massage)
-#     return jsonify(message)
-
+@app.route('/massage/')
+def massage():
+    #print(table_massage)
+    return jsonify(table_massage)
 
 @app.route('/chart/', methods=['GET'])
 def index():
     return render_template('index.html')
 
-
-table_massage = {}
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -349,8 +361,22 @@ def tabs():
                 act3_like += int(act3[i].act_one_like)
                 i = i + 1
             table_massage['act3_like'] = act3_like / len(act3)
+
+        list.append(table_massage['invest'])
+        list.append(table_massage['dir_like'])
+        list.append(request.form.get('time'))
+        list.append(request.form.get('popular'))
+        list.append(table_massage['type'])
+        table_massage['result'] = Create_score_model(list)
         return redirect(url_for('index'))
 
+@app.route('/ball/')
+def ball():
+    return render_template('ball.html')
+
+@app.route('/gauge/')
+def gauge():
+     return render_template('gauge.html')
 
 if __name__ == '__main__':
     app.run()
