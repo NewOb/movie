@@ -4,7 +4,7 @@
           if (error)
                 console.log(error);
             console.log(massage);
-    var svg = d3.select("#speedometer")
+    var svg = d3.select("#gauge")
                 .append("svg:svg")
                 .attr("width", 500)
                 .attr("height", 500);

@@ -295,7 +295,7 @@ def tabs():
         table_massage['act2'] = request.form.get('act2')
         table_massage['act3'] = request.form.get('act3')
         table_massage['time'] = request.form.get('time')
-        table_massage['like'] = request.form.get('like')
+        table_massage['popular'] = request.form.get('popular')
         table_massage['type'] = request.form.get('type').split()
         table_massage['invest'] = request.form.get('invest')
         table_massage['key_word'] = request.form.get('key_words').split()
