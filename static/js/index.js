@@ -2,16 +2,17 @@ d3.json("/l_data/", function (error, type_data) {
         var i = 0;
         var type = [];
         var type_like = [];
-        var color = ['#CDAA7D', '#178BCA', '#008B00', '#9ACD32', '#8EE5EE', '#AA7D39', '#696969', '#DB7093', '#FF8C00', '#20B2AA', '#000000', '#CD2626', '#FFD700', ' #9932CC', '#CD96CD', '#CCCC33'];
+        var color = [];
         var t_color = [];
         if (error)
             console.log(error);
-        // console.log(type_data[16]);
+        // console.log(type_data);
         // console.log(type_data[0].zh);
         while (i < 16) {
             // console.log(tabs[i].zh);
             type[i] = type_data[i].zh;
             type_like[i] = type_data[i].like;
+            color[i] = type_data[i].Color;
             t_color[i] = "#B3B6B6";
             i++;
         }
@@ -19,8 +20,8 @@ d3.json("/l_data/", function (error, type_data) {
             var p = 0;
             while (p < type.length) {
                 // console.log(type_data[16][a]);
-                // console.log(type[p]);
-                if (type[p] == type_data[16][a]) {
+                // console.log(type_data[p].en);
+                if (type_data[p].en == type_data[16][a]) {
                     t_color[p] = color[p];
                 }
                 p++;
@@ -34,9 +35,9 @@ d3.json("/l_data/", function (error, type_data) {
         // }
 
         var cloud = d3.layout.cloud()
-            .size([600, 400])  // 宽高
+            .size([600, 500])  // 宽高
             .words(type.map(function (d, i) {
-                return {text: d, size: (type_like[i] / 3) + 0.1 * 90};
+                return {text: d, size: (type_like[i] / 10) + 0.2 * 90, color: t_color[i]};
             }))  // 数据
             .padding(5)  // 内间距
             .rotate(function () {
@@ -50,22 +51,22 @@ d3.json("/l_data/", function (error, type_data) {
 
         cloud.start();
 
-        function draw(words) {
+        function draw(type) {
 
             d3.select("#cloud").append("svg")
-                .attr("width", cloud.size()[0])
-                .attr("height", cloud.size()[1])
+                .attr("width", 525)
+                .attr("height", 450)
                 .append("g")
-                .attr("transform", "translate(" + cloud.size()[0] / 2 + "," + cloud.size()[1] / 2 + ")")
+                .attr("transform", "translate(" + 525 / 2 + "," + 450 / 2 + ")")
                 .selectAll("text")
-                .data(words)
+                .data(type)
                 .enter().append("text")
                 .attr("text-anchor", "middle")
                 .attr("transform", function (d) {
                     return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
                 })
-                .style("fill", function (d, i) {
-                    return t_color[i];
+                .style("fill", function (d) {
+                    return d.color;
                 })
                 .transition()
                 .duration(1000)

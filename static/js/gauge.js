@@ -3,10 +3,10 @@
 
           if (error)
                 console.log(error);
-            console.log(massage);
+            // console.log(massage);
     var svg = d3.select("#gauge")
                 .append("svg:svg")
-                .attr("width", 500)
+                .attr("width", 470)
                 .attr("height", 500);
 
 

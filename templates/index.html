@@ -6,18 +6,24 @@
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Play:700,400' type='text/css'>
     <link rel="stylesheet" href="{{url_for('static',filename = 'css/gauge.css')}}">
     <link rel="stylesheet" href="{{url_for('static',filename = 'css/ball.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename = 'css/index.css')}}">
 </head>
 <body>
-<div id="title"></div>
-<div id="main_chart"></div>
-<div id="cloud"></div>
-<div id="gauge"></div>
-<div id="ball">
-    <svg id="fillgauge1" width="19%" height="200"></svg>
-    <svg id="fillgauge2" width="19%" height="200"></svg>
-    </br>
-    <text class="piaofang">票房</text>
-    <text class="pingfen">评分</text>
+<div id="foot">
+    <div id="title"></div>
+    <div id="ball">
+        <svg id="fillgauge1" width="19%" height="200"></svg>
+        <svg id="fillgauge2" width="19%" height="200"></svg>
+        </br>
+        <text class="piaofang">票房</text>
+        <text class="pingfen">评分</text>
+    </div>
+</div>
+<div id="blank"></div>
+<div id="top">
+    <div id="cloud"></div>
+    <div id="main_chart"><svg width="525" height="450"></svg></div>
+    <div id="gauge"></div>
 </div>
 </body>
 <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerEvents/pointerevents.js"></script>
