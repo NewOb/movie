@@ -1,0 +1,25 @@
+   .axis text {
+            font: 10px sans-serif;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+
+        .line {
+            fill: none;
+            stroke: steelblue;
+            stroke-width: 1.5px;
+        }
+
+        .title {
+            font: 14px sans-serif;
+            font-weight: bold;
+        }
+
+        .label {
+            font: 13px sans-serif;
+        }
