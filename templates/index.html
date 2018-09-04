@@ -10,21 +10,22 @@
     <link rel="stylesheet" href="{{url_for('static',filename = 'css/line.css')}}">
 </head>
 <body>
-<div id="foot">
-    <div id="title"></div>
-    <div id="ball">
-        <svg id="fillgauge1" width="19%" height="200"></svg>
-        <svg id="fillgauge2" width="19%" height="200"></svg>
-        </br>
-        <text class="piaofang">票房</text>
-        <text class="pingfen">评分</text>
-    </div>
+<div id="left">
+    <div id="gauge"></div>`
+    <div id="bullet"></div>
 </div>
-<div id="blank"></div>
-<div id="top">
+<div id="middle"><div id="title"></div>
+    <div id="ball">
+    <svg id="fillgauge1" width="19%" height="200"></svg>
+    <svg id="fillgauge2" width="19%" height="200"></svg>
+    </br>
+    <text class="piaofang">票房</text>
+    <text class="pingfen">评分</text>
+</div>
+</div>
+<div id="right">
+    <div id="line"></div>
     <div id="cloud"></div>
-    <div id="main_chart"><svg width="525" height="450"></svg></div>
-    <div id="gauge"></div>
 </div>
 </body>
 <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerEvents/pointerevents.js"></script>
@@ -33,8 +34,10 @@
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script src="{{url_for('static',filename = 'js/ball.js')}}"></script>
+<script src="{{url_for('static',filename = 'js/bullet_module.js')}}"></script>
 <script src="{{url_for('static',filename = 'js/gauge.js')}}"></script>
 <script src="{{url_for('static',filename = 'js/d_ball.js')}}"></script>
+<script src="{{url_for('static',filename = 'js/bullet.js')}}"></script>
 <script src="{{url_for('static',filename = 'js/d3.layout.cloud.js')}}"></script>
 <script src="{{url_for('static',filename = 'js/cloud.js')}}"></script>
 <script src="{{url_for('static',filename = 'js/line.js')}}"></script>

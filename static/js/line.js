@@ -25,7 +25,7 @@
    let film_boxoffice='Box_office';
 
 
-    let svg = d3.select("body").append("svg")
+    let svg = d3.select("#line").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
@@ -388,7 +388,7 @@
         }
     }
 
-    d3.csv("C:\\Users\\虚拟现实实验室\\PycharmProjects\\movie\\line_data.csv", type, function (data) {
+    d3.csv("line_data.csv", type, function (error,data) {
         console.log(data);
         x.domain(d3.extent(data, function (d) {
             return d.years

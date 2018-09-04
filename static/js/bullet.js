@@ -12,12 +12,12 @@ var chart = d3.bullet()
 
 d3.json("/s_bullet/",function (error,data) {
     if(error)
-        console.log(error)
+        console.log(error);
         throw error;
 
     console.log(data);
 
-    var svg = d3.select("div").selectAll("svg")
+    var svg = d3.select("#bullet").selectAll("svg")
         .data(data)
         .enter().append("svg")
         .attr("class", "bullet")

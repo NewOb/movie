@@ -244,6 +244,7 @@ def bullet():
                 break
             else:
                 temp_variable = list(return_greate_interval(field_name, temp_num))
+                print(temp_index)
                 temp_variable.append(int(temp_arr[temp_index + 1]))
                 temp_variable.sort()
                 temp_list.append(temp_variable)
@@ -341,7 +342,8 @@ def bullet():
                 data[j] = arr[all_name.index(i)][description.index(j)]
             json_data.append(data)
         print(json_data)
-        jsonify(json_data)
+        return jsonify(json_data)
+    storage_json()
 
 
 @app.route('/data/', methods=['GET'])
@@ -549,6 +551,8 @@ def massage():
 
 @app.route('/chart/', methods=['GET'])
 def index():
+    film_type_list = ['Action', 'Drama']
+    store_score_data(film_type_list)
     return render_template('index.html')
 
 @app.route('/', methods=['GET', 'POST'])
@@ -638,8 +642,6 @@ def tabs():
         lists.append(table_massage['type'])
         table_massage['result'] = Create_score_model(lists)
 
-        film_type_list = ['Action', 'Drama']
-        store_score_data(film_type_list)
 
         #针对电影类型做中英文转换
         # for item in table_massage['type']:
