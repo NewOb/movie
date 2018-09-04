@@ -10,7 +10,7 @@ d3.json("/l_data/", function (error, type_data) {
         // console.log(type_data[0].zh);
         while (i < 16) {
             // console.log(tabs[i].zh);
-            type[i] = type_data[i].zh;
+            type[i] = type_data[i].en;
             type_like[i] = type_data[i].like;
             color[i] = type_data[i].Color;
             t_color[i] = "#B3B6B6";
@@ -51,6 +51,13 @@ d3.json("/l_data/", function (error, type_data) {
 
         cloud.start();
 
+        d3.selectAll(".cloud_text")
+            .on("mouseover",function () {
+                $.post("/cloud_rect/",this.innerHTML,function (data,status) {
+                    console.log(data)
+                });
+            });
+
         function draw(type) {
 
             d3.select("#cloud").append("svg")
@@ -61,6 +68,7 @@ d3.json("/l_data/", function (error, type_data) {
                 .selectAll("text")
                 .data(type)
                 .enter().append("text")
+                .attr("class","cloud_text")
                 .attr("text-anchor", "middle")
                 .attr("transform", function (d) {
                     return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
