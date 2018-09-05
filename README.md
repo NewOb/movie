@@ -10,6 +10,7 @@ imdb_score_model --预测模型文件
 data.csv --预测模型参考文件  
 IMDB --主文件
 
+
 # 后端数据说明
 l_type --词云图数据 *url:'/l_data/'*  
 d_type --结果波动图数据 *url:'/data/'*  
@@ -17,6 +18,7 @@ lists --预测模型输入列表 *url:'/'*
 fin_data --词云图交互数据 *url:'/cloud_rect'*  
 table_massage --用户输入的信息 *接收url:'/' 返回url:'/massage/'*  
 table_massage为字典型数据，其他数据均为列表型数据，列表里的元素为字典。
+
 
 #前端主要文件说明
 tabs.html --用户输入表单页面  
