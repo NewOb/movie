@@ -4,6 +4,7 @@ d3.json("/l_data/", function (error, type_data) {
         var type_like = [];
         var color = [];
         var t_color = [];
+        var rect_data = [];
         if (error)
             console.log(error);
         // console.log(type_data);
@@ -54,6 +55,9 @@ d3.json("/l_data/", function (error, type_data) {
         d3.selectAll(".cloud_text")
             .on("mouseover",function () {
                 $.post("/cloud_rect/",this.innerHTML,function (data,status) {
+                    for (i = 0;i<data.length;i++){
+                        rect_data[i] = data[i]
+                    }
                     console.log(data)
                 });
             });
