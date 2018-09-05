@@ -20,7 +20,7 @@ table_massage --用户输入的信息 *接收url:'/' 返回url:'/massage/'*
 table_massage为字典型数据，其他数据均为列表型数据，列表里的元素为字典。
 
 
-#前端主要文件说明
+# 前端主要文件说明
 tabs.html --用户输入表单页面  
 index.html --数据可视化页面  
 gauge.js --仪表盘图  
@@ -29,5 +29,5 @@ ball.js --结果波动图模板插件
 d3.layout.cloud.js --词云图布局插件  
 cloud.js --词云图
 
-#其他说明  
+# 其他说明  
 数据库字段名称可以在models.py文件下查找  
