@@ -27,5 +27,5 @@ ball.js --结果波动图模板插件
 d3.layout.cloud.js --词云图布局插件  
 cloud.js --词云图
 
-#其他说明
-数据库字段名称可以在models.py文件下查找
+#其他说明  
+数据库字段名称可以在models.py文件下查找  
