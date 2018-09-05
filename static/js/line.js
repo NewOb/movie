@@ -153,7 +153,8 @@
 
     function drawYAxis(new_data) {
         d3.selectAll('.yAxisG').remove();
-        let arr = d3.extent(new_data[1], function (d) {
+
+        let arr = new_data[1].map(function (d) {
             return d.values.map(function (dd, i) {
                 return parseFloat(dd[yName]);
             });
@@ -388,7 +389,7 @@
         }
     }
 
-    d3.csv("line_data.csv", type, function (error,data) {
+    d3.csv("../static/data/line_data.csv", type, function (error,data) {
         console.log(data);
         x.domain(d3.extent(data, function (d) {
             return d.years

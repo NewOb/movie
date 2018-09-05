@@ -53,14 +53,26 @@ d3.json("/l_data/", function (error, type_data) {
         cloud.start();
 
         d3.selectAll(".cloud_text")
-            .on("mouseover",function () {
+            .on("click",function () {
                 $.post("/cloud_rect/",this.innerHTML,function (data,status) {
                     for (i = 0;i<data.length;i++){
                         rect_data[i] = data[i]
                     }
                     console.log(data)
                 });
+                cloud_remove();
             });
+
+        function cloud_remove() {
+            d3.selectAll(".cloud_text")
+                .transition()
+                .duration(1000)
+                .ease("linear")
+                .style("font-size",function () {
+                    return "0px"
+                })
+                .remove()
+        }
 
         function draw(type) {
 

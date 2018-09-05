@@ -7,7 +7,7 @@ cursor = db.cursor()
 
 '''折线图数据处理，更改起点'''
 table = 'xl'  # 表名
-file_name = 'line_data.csv'  # 保存的文件路径
+file_name = 'static/data/line_data.csv'  # 保存的文件路径
 # 记：电影类型【】要么通过 电影名 查找数据库得到，要么直接从输入框中得到
 film_type_list = ['Action', 'Drama']  # 电影类型list
 ''' 更改终点'''

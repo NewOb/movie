@@ -10,7 +10,7 @@ var chart = d3.bullet()
     .width(width)
     .height(height);
 
-d3.json("/s_bullet/",function (error,data) {
+d3.json("../static/data/bullet_data.json",function (error,data) {
     if(error)
         console.log(error);
         throw error;
