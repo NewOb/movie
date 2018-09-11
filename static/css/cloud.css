@@ -1,0 +1,8 @@
+.r_axis path, .r_axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+.r_axis text{
+    font: 10px sans-serif;
+}

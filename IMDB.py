@@ -400,7 +400,7 @@ def index():
     film_type_list = table_massage['type']
     store_score_data(film_type_list)
 
-    storage_json(table_massage['name'])
+    # storage_json(table_massage['name'])
     return render_template('index.html')
 
 @app.route('/', methods=['GET', 'POST'])
