@@ -118,6 +118,7 @@ d3.json("/l_data/", function (error, type_data) {
 
         var tip = d3.tip()
             .attr("class", "d3-tip")
+            .offset([-10,0])
             .html(function (d) {
                 return "<strong>" + d.like + "</strong>"
             });
