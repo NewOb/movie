@@ -6,11 +6,11 @@ div {
     width: 960px;
 }
 
-button {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-}
+/*button {*/
+    /*position: absolute;*/
+    /*right: 10px;*/
+    /*top: 10px;*/
+/*}*/
 #bullet_chart{
     width: 558px;
     height: 206px;
@@ -20,13 +20,13 @@ button {
     position: relative;
     /*margin-top: 10%;*/
 }
-#line_chart{
-    width: 479px;
-    height: 292px;
-    margin-top: 40px;
-    margin-right: 20px;
-    margin-left: 500px;
-}
+/*#line_chart{*/
+    /*width: 479px;*/
+    /*height: 292px;*/
+    /*margin-top: 40px;*/
+    /*margin-right: 20px;*/
+    /*margin-left: 500px;*/
+/*}*/
 
 .bullet { font: 10px sans-serif; }
 .bullet .marker { stroke: #000; stroke-width: 2px; }

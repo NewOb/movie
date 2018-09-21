@@ -66,20 +66,6 @@ d3.json("/l_data/", function (error, type_data) {
             .text(function (d) {
                 return d.text;
             })
-            .on("click", function () {
-                $.post("/cloud_rect/", this.innerHTML, function (data, status) {
-                    console.log(data);
-                    console.log(status);
-                    for (var i = 0; i < data.length; i++) {
-                        rect_year[i] = data[i].year;
-                        rect_like[i] = data[i].like;
-                    }
-                    var us_r_color = color[r_color(data[0].type)];
-                    console.log(d3.max(rect_like));
-                    cloud_remove();
-                    rect(data, rect_year, rect_like, us_r_color);
-                })
-            })
     }
 
 
@@ -179,8 +165,9 @@ d3.json("/l_data/", function (error, type_data) {
             .attr("y", function (d) {
                 return y(d.like)
             })
-            .attr("width", "26")
-            .on("mouseover", tip.show)
+            .attr("width", "26");
+
+        d3.selectAll(".bar").on("mouseover", tip.show)
             .on("mouseout", tip.hide)
 
     }
@@ -214,20 +201,20 @@ d3.json("/l_data/", function (error, type_data) {
 
     cloud();
 
-    // d3.selectAll(".cloud_text")
-    //     .on("click", function () {
-    //         $.post("/cloud_rect/", this.innerHTML, function (data, status) {
-    //             console.log(data);
-    //             console.log(status);
-    //             for (var i = 0; i < data.length; i++) {
-    //                 rect_year[i] = data[i].year;
-    //                 rect_like[i] = data[i].like;
-    //             }
-    //             var us_r_color = color[r_color(data[0].type)];
-    //             console.log(d3.max(rect_like));
-    //             cloud_remove();
-    //             rect(data, rect_year, rect_like, us_r_color);
-    //         });
-    //     });
+    d3.selectAll(".cloud_text").on('click',function () {
+                $.post("/cloud_rect/", this.innerHTML, function (data, status) {
+                    console.log(data);
+                    console.log(status);
+                    for (var i = 0; i < data.length; i++) {
+                        rect_year[i] = data[i].year;
+                        rect_like[i] = data[i].like;
+                    }
+                    var us_r_color = color[r_color(data[0].type)];
+                    console.log(d3.max(rect_like));
+                    cloud_remove();
+                    rect(data, rect_year, rect_like, us_r_color);
+                })
+            })
+
 
 });
