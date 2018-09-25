@@ -6,7 +6,7 @@
             // console.log(massage);
     var svg = d3.select("#gauge")
                 .append("svg:svg")
-                .attr("width", 470)
+                .attr("width", "100%")
                 .attr("height", 500);
 
 

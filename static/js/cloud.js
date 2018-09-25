@@ -120,7 +120,7 @@ d3.json("/l_data/", function (error, type_data) {
             .attr("class", "d3-tip")
             .offset([-10,0])
             .html(function (d) {
-                return "<strong>" + d.like + "</strong>"
+                return "<strong style='color: crimson'>like:</strong>"+"<strong>" + d.like + "</strong>"
             });
 
         var svg = d3.select(".c_svg")
