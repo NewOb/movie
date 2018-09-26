@@ -6,7 +6,7 @@ d3.json("/l_data/", function (error, type_data) {
     var t_color = [];
     var rect_year = [];
     var rect_like = [];
-    var width = 600, height = 450;
+    var width = "100%", height = 450;
     if (error)
         console.log(error);
     // console.log(type_data);
@@ -37,10 +37,11 @@ d3.json("/l_data/", function (error, type_data) {
     //
     // }
 
-    function draw(type) {
+    d3.select("#cloud").append("svg")
+            .attr("class", "c_svg");
 
-        d3.select("#cloud").append("svg")
-            .attr("class", "c_svg")
+    function draw(type) {
+        d3.select(".c_svg")
             .attr("width", width)
             .attr("height", height)
             .append("g")
@@ -65,7 +66,22 @@ d3.json("/l_data/", function (error, type_data) {
             .style("font-family", "Impact")
             .text(function (d) {
                 return d.text;
-            })
+            });
+
+        d3.selectAll(".cloud_text").on('click', function () {
+        $.post("/cloud_rect/", this.innerHTML, function (data, status) {
+            console.log(data);
+            console.log(status);
+            for (var i = 0; i < data.length; i++) {
+                rect_year[i] = data[i].year;
+                rect_like[i] = data[i].like;
+            }
+            var us_r_color = color[r_color(data[0].type)];
+            console.log(d3.max(rect_like));
+            cloud_remove();
+            rect(data, rect_year, rect_like, us_r_color);
+        });
+    });
     }
 
 
@@ -73,7 +89,7 @@ d3.json("/l_data/", function (error, type_data) {
         var cloud = d3.layout.cloud()
             .size([600, 500])  // 宽高
             .words(type.map(function (d, i) {
-                return {text: d, size: (type_like[i] / 10) + 0.2 * 90, color: t_color[i]};
+                return {text: d, size: (type_like[i] / 10) + 0.1 * 90, color: t_color[i]};
             }))  // 数据
             .padding(5)  // 内间距
             .rotate(function () {
@@ -118,13 +134,12 @@ d3.json("/l_data/", function (error, type_data) {
 
         var tip = d3.tip()
             .attr("class", "d3-tip")
-            .offset([-10,0])
+            .offset([-10, 0])
             .html(function (d) {
-                return "<strong style='color: crimson'>like:</strong>"+"<strong>" + d.like + "</strong>"
+                return "<strong style='color: crimson'>like:</strong>" + "<strong>" + d.like + "</strong>"
             });
 
         var svg = d3.select(".c_svg")
-            .attr("class", "r_svg")
             .append("g")
             .attr("transform", "translate(50,30)");
 
@@ -170,6 +185,10 @@ d3.json("/l_data/", function (error, type_data) {
 
         d3.selectAll(".bar").on("mouseover", tip.show)
             .on("mouseout", tip.hide)
+            .on("click",function () {
+                rect_remove();
+                cloud();
+            })
 
     }
 
@@ -202,20 +221,6 @@ d3.json("/l_data/", function (error, type_data) {
 
     cloud();
 
-    d3.selectAll(".cloud_text").on('click',function () {
-                $.post("/cloud_rect/", this.innerHTML, function (data, status) {
-                    console.log(data);
-                    console.log(status);
-                    for (var i = 0; i < data.length; i++) {
-                        rect_year[i] = data[i].year;
-                        rect_like[i] = data[i].like;
-                    }
-                    var us_r_color = color[r_color(data[0].type)];
-                    console.log(d3.max(rect_like));
-                    cloud_remove();
-                    rect(data, rect_year, rect_like, us_r_color);
-                })
-            })
 
 
 });
