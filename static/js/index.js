@@ -1,4 +1,5 @@
 var f_massage;
+var type_color;
 $("#submit").click(function form() {
     $.ajax({
         type: "POST",
@@ -17,6 +18,16 @@ $("#submit").click(function form() {
     })
 });
 
+d3.json("/color/",function (error,data) {
+    if (error)
+        console.log(error);
+    console.log(data);
+    type_color=data
+});
+
 function get_massage() {
     return f_massage;
+}
+function get_color() {
+    return type_color;
 }

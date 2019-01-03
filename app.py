@@ -8,6 +8,28 @@ app = Flask(__name__)
 app.config.from_object(config)
 db.init_app(app)
 
+# 将颜色统一设定
+@app.route("/color/",methods=['GET','POST'])
+def color():
+    type_color = [{'name': 'Comedy', 'Color': '#178BCA'},
+              {'name': 'Advnameture', 'Color': '#CDAA7D'},
+              {'name': 'Fantasy', 'Color': '#008B00'},
+              {'name': 'Mystery', 'Color': '#9ACD32'},
+              {'name': 'Thriller', 'Color': '#8EE5EE'},
+              {'name': 'Documnametary', 'Color': '#AA7D39'},
+              {'name': 'War', 'Color': '#696969'},
+              {'name': 'Western', 'Color': '#DB7093'},
+              {'name': 'Romance', 'Color': '#FF8C00'},
+              {'name': 'Drama', 'Color': '#20B2AA'},
+              {'name': 'Horror', 'Color': '#000000'},
+              {'name': 'Action', 'Color': '#CD2626'},
+              {'name': 'Sci-Fi','Color': '#FFD700'},
+               {'name': 'Music', 'Color': '#9932CC'},
+              {'name': 'Family', 'Color': '#CD96CD'},
+              {'name': 'Crime', 'Color': '#CCCC33'},
+              ]
+    return jsonify(type_color)
+
 @app.route("/ball_data/", methods=['GET'])
 def ball():
     pass
