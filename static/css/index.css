@@ -1,15 +1,18 @@
-#left{
-    width: 40%;
+#form{
+    width: 25%;
     float: left;
 }
-#middle{
-    width: 20%;
-float: left;
+#center{
+    width: 45%;
+    height: 300px;
+    float: left;
 }
 #right{
-    width: 40%;
+    width: 30%;
+    height: 300px;
     float: left;
 }
-.piaofang .pingfen{
-    text-align: center;
+form{
+    width: 90%;
+    margin: 0 auto;
 }

@@ -14,6 +14,7 @@
             textcolor=[];
             var config1 = liquidFillGaugeDefaultSettings();
             var config2 = liquidFillGaugeDefaultSettings();
+            // action用来赋值
             function action() {
                 if (i < len) {
                     for (var k = 0; k < 16; k++) {
@@ -109,3 +110,4 @@
             }, 5000);    //时间设置
         })
     });
+

@@ -4,46 +4,112 @@
     <meta charset="UTF-8">
     <title>电影票房及评分预测系统</title>
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Play:700,400' type='text/css'>
-    <link rel="stylesheet" href="{{url_for('static',filename = 'css/gauge.css')}}">
-    <link rel="stylesheet" href="{{url_for('static',filename = 'css/ball.css')}}">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="{{url_for('static',filename = 'css/index.css')}}">
-    <link rel="stylesheet" href="{{url_for('static',filename = 'css/line.css')}}">
-    <link rel="stylesheet" href="{{url_for('static',filename = 'css/bullet.css')}}">
-    <link rel="stylesheet" href="{{url_for('static',filename = 'css/cloud.css')}}">
+    <!--<link rel="stylesheet" href="{{url_for('static',filename = 'css/gauge.css')}}">-->
+    <!--<link rel="stylesheet" href="{{url_for('static',filename = 'css/ball.css')}}">-->
+    <!--<link rel="stylesheet" href="{{url_for('static',filename = 'css/line.css')}}">-->
+    <!--<link rel="stylesheet" href="{{url_for('static',filename = 'css/bullet.css')}}">-->
+    <!--<link rel="stylesheet" href="{{url_for('static',filename = 'css/cloud.css')}}">-->
 </head>
 <body>
-<div id="left">
-    <div id="gauge"></div>
+<div id="form">
+    <form id="data" action="##" method="post">
+        <div class="form-group">
+            <label for="name" class="control-label">电影名称</label>
+            <input type="text" class="form-control" name="name" id="name" value="The Godfather?">
+        </div>
+        <div class="form-group">
+            <label for="director" class="control-label">导演</label>
+            <input type="text" class="form-control" name="director" id="director" value="Francis Ford Coppola">
+        </div>
+        <div class="form-group">
+            <label for="act1" class="control-label">主演1</label>
+            <input type="text" class="form-control" name="act1" id="act1" value="Luigi Pistilli">
+        </div>
+        <div class="form-group">
+            <label for="act2" class="control-label">主演2</label>
+            <input type="text" class="form-control" name="act2" id="act2" value="Luigi Pistilli">
+        </div>
+        <div class="form-group">
+            <label for="act3" class="control-label">主演3</label>
+            <input type="text" class="form-control" name="act3" id="act3" value="Sam Anderson">
+        </div>
+        <div class="form-group">
+            <label for="time" class="control-label">电影时长</label>
+            <input type="text" class="form-control" name="time" id="time" placeholder="单位：分钟" value="120">
+        </div>
+        <div class="form-group">
+            <label for="type" class="control-label">电影类型</label>
+            <input type="text" class="form-control" name="type" id="type" placeholder="类型之间请用空格分开" value="Crime Drama">
+        </div>
+        <div class="form-group">
+            <label for="invest" class="control-label">投资金额</label>
+            <input type="text" class="form-control" name="invest" id="invest" placeholder="单位：万元" value="350">
+        </div>
+        <div class="form-group">
+            <label for="key_words" class="control-label">剧情关键词</label>
+            <input type="text" class="form-control" name="key_words" id="key_words" placeholder="关键词之间请用空格分开"
+                   value="black comedy cunnilingus neo noir nonlinear timeline postmodern">
+        </div>
+        <div class="form-group">
+            <label for="popular" class="control-label">表示"想看"的人数</label>
+            <input type="text" class="form-control" name="popular" id="popular" placeholder="单位：人" value="12345">
+        </div>
+        <div class="form-group">
+            <label for="CBW" class="control-label">电影色彩</label>
+            <select class="form-control" name="CBW" id="CBW">
+                <option value="BW">黑白</option>
+                <option value="color">彩色</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="level" class="control-label">内容评级</label>
+            <select class="form-control" name="level" id="level">
+                <option value="Approved">Approved</option>
+                <option value="G">G</option>
+                <option value="GP">PG</option>
+                <option value="PG-13">PG-13</option>
+                <option value="R">R</option>
+                <option value="NC-17">NC-17</option>
+            </select>
+        </div>
+        <div class="modal-footer">
+            <button type="reset" class="btn btn-default" id="reset">重置</button>
+            <button type="button" class="btn btn-primary" id="submit">提交</button>
+        </div>
+    </form>
+</div>
+<div id="center">
+    <div id="ball">
+        <!--票房预测结果-->
+        <!--<svg id="fillgauge1"></svg>-->
+        <!--评分预测结果-->
+        <!--<svg id="fillgauge2"></svg>-->
+    </div>
     <div id="bullet"></div>
 </div>
-<div id="middle">
-    <div id="title"></div>
-    <div id="ball">
-        <svg id="fillgauge1"></svg>
-        </br>
-        <p class="piaofang">票房</p>
-        <svg id="fillgauge2"></svg>
-        </br>
-        <p class="pingfen">评分</p>
-    </div>
-</div>
 <div id="right">
-    <div id="line"></div>
     <div id="cloud"></div>
+    <div id="line1"></div>
+    <div id="line2"></div>
+    <div id="gauge"></div>
 </div>
 </body>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
 <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerEvents/pointerevents.js"></script>
 <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerGestures/pointergestures.js"></script>
 <script type="text/javascript" src="http://iop.io/js/iopctrl.js"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
-<script src="https://d3js.org/d3.v3.min.js"></script>
-<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-<script src="{{url_for('static',filename = 'js/d3.layout.cloud.js')}}"></script>
-<script src="{{url_for('static',filename = 'js/cloud.js')}}"></script>
-<script src="{{url_for('static',filename = 'js/ball.js')}}"></script>
-<script src="{{url_for('static',filename = 'js/bullet_module.js')}}"></script>
-<script src="{{url_for('static',filename = 'js/gauge.js')}}"></script>
-<script src="{{url_for('static',filename = 'js/d_ball.js')}}"></script>
-<script src="{{url_for('static',filename = 'js/bullet.js')}}"></script>
-<script src="{{url_for('static',filename = 'js/line.js')}}"></script>
+<script src="{{url_for('static',filename = 'js/index.js')}}"></script>
+<!--<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>-->
+<!--<script src="{{url_for('static',filename = 'js/d3.layout.cloud.js')}}"></script>-->
+<!--<script src="{{url_for('static',filename = 'js/cloud.js')}}"></script>-->
+<!--<script src="{{url_for('static',filename = 'js/ball.js')}}"></script>-->
+<!--<script src="{{url_for('static',filename = 'js/bullet_module.js')}}"></script>-->
+<!--<script src="{{url_for('static',filename = 'js/gauge.js')}}"></script>-->
+<!--<script src="{{url_for('static',filename = 'js/d_ball.js')}}"></script>-->
+<!--<script src="{{url_for('static',filename = 'js/bullet.js')}}"></script>-->
+<!--<script src="{{url_for('static',filename = 'js/line.js')}}"></script>-->
 </html>
