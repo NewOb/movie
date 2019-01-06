@@ -3,21 +3,21 @@ function liquidFillGaugeDefaultSettings() {
     return {
         minValue: 0, // 仪表最小值 ，从数据中传入
         maxValue: 888888888, // 仪表最大值，从数据中传入
-        circleThickness: 0.05, //外圆的厚度作为其半径的一个百分比。
-        circleFillGap: 0.05, // 外圆与波圈之间的间隙大小为外圆半径的百分比。
+        circleThickness: 0.1, //外圆的厚度作为其半径的一个百分比。
+        circleFillGap: 0.1, // 外圆与波圈之间的间隙大小为外圆半径的百分比。
         circleColor: "#20B2AA", //外圆的颜色。
         nextcircleColor:"#ca2e33",
-        waveHeight: 0.05, //波高作为波圈半径的百分比。
+        waveHeight: 0.3, //波高作为波圈半径的百分比。
         waveCount: 1, // 波圈每宽度的全波数。
         waveRiseTime: 1000, // 波浪从0上升到最后高度的毫秒时间。
-        waveAnimateTime: 18000, //一个完整的波进入波圈的毫秒的时间量。
+        waveAnimateTime: 3000, //一个完整的波进入波圈的毫秒的时间量。
         waveRise: true, //控制波浪应该从0上升到它的全高，还是从它的全高开始。
         waveHeightScaling: true, //控制波大小缩放在低和高填充百分比。当为真时，波高达到最大值，填充量为50%，最小填充量为0%和100%。这有助于防止波浪在接近最小或最大填充时使波浪圈看起来完全满或空。
         waveAnimate: true, // 控制波浪滚动或静止
         waveColor: "#CDAA7D", // 填充波的颜色。#178BCA
         nextwaveColor:"#4EEE94",
         waveOffset: 0, //最初抵消波浪的量。0＝无偏移。1 =一个完整波的偏移。
-        textVertPosition: .5, // 显示波圈的百分比文本的高度。0＝底部，1＝顶部。
+        textVertPosition: 0.8, // 显示波圈的百分比文本的高度。0＝底部，1＝顶部。
         textSize: 1, // 在波圈中显示的文本的相对高度。1＝50%
         valueCountUp: true, // 如果为真，则显示值在加载后从0计数到其最终值。如果为false，则显示最终值。
         displayPercent: true, //如果为真，则在该值之后显示一%个符号。

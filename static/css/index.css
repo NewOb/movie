@@ -16,3 +16,6 @@ form{
     width: 90%;
     margin: 0 auto;
 }
+#fillgauge1,#fillgauge2{
+    width: 50%;
+}
