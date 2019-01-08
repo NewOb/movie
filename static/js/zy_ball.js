@@ -7,7 +7,7 @@ var colors = get_color();
 var massages = get_massage();
 
 // console.log();
-console.log(colors);
+console.log(massages);
 // circlecolor
 var circlecor = [];
 // wavecolor
@@ -17,55 +17,65 @@ var textcor = [];
 // wavetextcolor
 var wtcor = [];
 
-for (i in massages.type) {
-    for (p in colors) {
-        if (p.name == i) {
-            circlecor.push(p.Color);
-            wavecor.push(p.Color);
-            textcor.push(p.textColor);
-            wtcor.push(p.waveTextColor)
+config1.circleColor = "#178BCA";
+config1.textColor = "#045681";
+config1.waveTextColor = "#A4DBf8";
+config1.waveColor = "#178BCA";
+config1.maxValue = 10;
+
+config2.circleColor = "#178BCA";
+config2.textColor = "#045681";
+config2.waveTextColor = "#A4DBf8";
+config2.waveColor = "#178BCA";
+
+var chart1 = loadLiquidFillGauge("fillgauge1", 5.0, config1);
+var chart2 = loadLiquidFillGauge("fillgauge2", 100000000.0, config2);
+
+for (var q=0;q <massages.type.length;q++) {
+    for (var p=0;p <colors.length;p++) {
+        if (colors[p].name == massages.type[q]) {
+            circlecor.push(colors[p].Color);
+            wavecor.push(colors[p].Color);
+            textcor.push(colors[p].textColor);
+            wtcor.push(colors[p].waveTextColor)
         }
     }
 }
-config1.circleColor = circlecor[0];
-config1.textColor = textcor[0];
-config1.waveTextColor = wtcor[0];
-config1.waveColor = wavecor[0];
-
-config2.circleColor = circlecor[0];
-config2.textColor = textcor[0];
-config2.waveTextColor = wtcor[0];
-config2.waveColor = wavecor[0];
-
-var chart1 = loadLiquidFillGauge("fillgauge1", massages.resut[0].toFixed(1), config1);
-var chart2 = loadLiquidFillGauge("fillgauge2", massages.resut[1].toFixed(1), config2);
 
 function ups() {
-    if (wtcor.length > 1) {
         var i = 0;
         while (wtcor[i]) {
-            i++;
             config1.circleColor = circlecor[i];
             config1.textColor = textcor[i];
             config1.waveTextColor = wtcor[i];
             config1.waveColor = wavecor[i];
+            config1.value = massages.result[0].toFixed(1);
 
             config2.circleColor = circlecor[i];
             config2.textColor = textcor[i];
             config2.waveTextColor = wtcor[i];
             config2.waveColor = wavecor[i];
+            config2.value = massages.result[1].toFixed(1);
 
             chart1.update(config1.circleColor);
             chart1.update(config1.textColor);
             chart1.update(config1.waveColor);
             chart1.update(config1.waveTextColor);
+            chart1.update(config1.value);
 
             chart2.update(config2.circleColor);
             chart2.update(config2.textColor);
             chart2.update(config2.waveColor);
             chart2.update(config2.waveTextColor);
-        }
-    }
-}
+            chart2.update(config2.value);
 
-setTimeout("ups()", 5000);
+            i++;
+
+            if (i==wtcor.length){
+                i=0
+            }
+        }
+}
+if (massages){
+    setInterval("ups()", 5000);
+}
