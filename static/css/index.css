@@ -40,16 +40,17 @@ form{
     margin-top: 25px;
     text-align: center;
     font-size: 50px;
+    color: #eb586f;
     font-family: 微软雅黑;
 }
-#cloud,#line,#gauge,#line1,#line2,#gauge1,#gauge2{
+#cloud,#heatmap,#gauge,#gauge1,#gauge2{
     height: 280px;
 }
-#line1,#gauge1{
+#gauge1{
     width: 50%;
     float: left;
 }
-#line2,#gauge2{
+#gauge2{
     width: 50%;
     float: right;
 }

@@ -3,27 +3,52 @@ var config1 = liquidFillGaugeDefaultSettings();
 // 票房
 var config2 = liquidFillGaugeDefaultSettings();
 
-
-config1.circleColor = "#178BCA";
-config1.textColor = "#045681";
-config1.waveTextColor = "#A4DBf8";
-config1.waveColor = "#178BCA";
+config1.circleColor = "#eb586f";
+config1.textColor = "#eb586f";
+config1.waveTextColor = "#eb8b8b";
+config1.waveColor = "#eb586f";
 config1.maxValue = 10;
 
-config2.circleColor = "#178BCA";
-config2.textColor = "#045681";
-config2.waveTextColor = "#A4DBf8";
-config2.waveColor = "#178BCA";
+config2.circleColor = "#eb586f";
+config2.textColor = "#eb586f";
+config2.waveTextColor = "#eb8b8b";
+config2.waveColor = "#eb586f";
+config2.maxValue = 10000000000;
 
-var chart1 = loadLiquidFillGauge("fillgauge1", 5.0, config1);
-var chart2 = loadLiquidFillGauge("fillgauge2", 100000000.0, config2);
+var score = 0;
+var box_office = 0;
 
 d3.select("#stext")
     .append("h3")
     .attr("class", "result")
-    .text("评分：" + "5.0");
+    .attr("id","stext")
+    .text("评分：" + score);
 
 d3.select("#btext")
     .append("h3")
     .attr("class", "result")
-    .text("票房：" + "1亿");
+    .attr("id","btext")
+    .text("票房：" + box_office);
+
+var chart1 = loadLiquidFillGauge("fillgauge1", 0, config1);
+var chart2 = loadLiquidFillGauge("fillgauge2", 0, config2);
+
+function Result(score, box_office) {
+    config1.value = score;
+    config2.value = box_office;
+
+    chart1.update(config1.value);
+    chart2.update(config2.value);
+
+    d3.select("#stext")
+        .transition()
+        .duration()
+        .ease("linear")
+        .text("评分"+score);
+
+    d3.select("#btext")
+        .transition()
+        .duration()
+        .ease("linear")
+        .text("评分"+box_office);
+}

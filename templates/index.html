@@ -11,11 +11,11 @@
     <!--<link rel="stylesheet" href="{{url_for('static',filename = 'css/ball.css')}}">-->
     <!--<link rel="stylesheet" href="{{url_for('static',filename = 'css/line.css')}}">-->
     <!--<link rel="stylesheet" href="{{url_for('static',filename = 'css/bullet.css')}}">-->
-    <!--<link rel="stylesheet" href="{{url_for('static',filename = 'css/cloud.css')}}">-->
+    <!--<link rel="stylesheet" href="{{url_for('static',filename = 'c ss/cloud.css')}}">-->
 </head>
 <body>
 <div id="form">
-    <form id="data" action="##" method="post">
+    <form id="data" action="#" method="post">
         <div class="form-group">
             <label for="name" class="control-label">电影名称</label>
             <input type="text" class="form-control" name="name" id="name" value="The Godfather?">
@@ -107,9 +107,7 @@
 </div>
 <div id="right">
     <div id="cloud"></div>
-    <div id="line">
-        <div id="line1"></div>
-        <div id="line2"></div>
+    <div id="heatmap">
     </div>
     <div id="gauge">
         <div id="gauge1"></div>
@@ -122,7 +120,6 @@
 <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerEvents/pointerevents.js"></script>
 <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerGestures/pointergestures.js"></script>
 <script type="text/javascript" src="http://iop.io/js/iopctrl.js"></script>
-<!--<script src="{{url_for('static',filename = 'js/index.js')}}"></script>-->
 <!--<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>-->
 <script src="../static/js/d3.layout.cloud.js"></script>
 <script src="../static/js/cloud.js"></script>
@@ -132,4 +129,5 @@
 <script src="../static/js/zy_ball.js"></script>
 <!--<script src="{{url_for('static',filename = 'js/bullet.js')}}"></script>-->
 <!--<script src="{{url_for('static',filename = 'js/line.js')}}"></script>-->
+<script src="{{url_for('static',filename = 'js/index.js')}}"></script>
 </html>

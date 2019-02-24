@@ -8,29 +8,6 @@ app = Flask(__name__)
 app.config.from_object(config)
 db.init_app(app)
 
-# 将颜色统一设定
-@app.route("/color/",methods=['GET','POST'])
-def color():
-    type_color = [{'name': 'Comedy', 'Color': '#178BCA','textColor': '#045681', 'waveTextColor': '#A4DBf8'},
-              {'name': 'Advnameture', 'Color': '#CDAA7D','textColor': '#8B7E66', 'waveTextColor': '#EED8AE'},
-              {'name': 'Fantasy', 'Color': '#008B00','textColor': '#006400', 'waveTextColor': '#9AFF9A'},
-              {'name': 'Mystery', 'Color': '#9ACD32','textColor': '#458B00', 'waveTextColor': '#FFFFE0'},
-              {'name': 'Thriller', 'Color': '#8EE5EE','textColor': '#00868B', 'waveTextColor': '#FFFAFA'},
-              {'name': 'Documnametary', 'Color': '#AA7D39','textColor': '#8B4500', 'waveTextColor': '#D4AB6A'},
-              {'name': 'War', 'Color': '#696969','textColor': '#000000', 'waveTextColor': '#FFFAFA'},
-              {'name': 'Western', 'Color': '#DB7093','textColor': '#B03060', 'waveTextColor': '#FFE4E1'},
-              {'name': 'Romance', 'Color': '#FF8C00','textColor': '#CD661D', 'waveTextColor': '#FFDEAD'},
-              {'name': 'Drama', 'Color': '#20B2AA','textColor': '#668B8B', 'waveTextColor': '#B0E0E6'},
-              {'name': 'Horror', 'Color': '#000000','textColor': '#000000', 'waveTextColor': '#BEBEBE'},
-              {'name': 'Action', 'Color': '#CD2626','textColor': '#8B1A1A', 'waveTextColor': '#FFFAFA'},
-              {'name': 'Sci-Fi','Color': '#FFD700','textColor': '#8B7500', 'waveTextColor': '#FFFAFA'},
-               {'name': 'Music', 'Color': '#9932CC','textColor': '#551A8B', 'waveTextColor': '#D8BFD8'},
-              {'name': 'Family', 'Color': '#CD96CD','textColor': '#68228B', 'waveTextColor': '#FFFAFA'},
-              {'name': 'Crime', 'Color': '#CCCC33','textColor': '#556B2F', 'waveTextColor': '#FFFAFA'},
-              ]
-    return jsonify(type_color)
-
-
 @app.route("/massage/", methods=['GET', 'POST'])
 def massage():
     # 前端表单所有项目
@@ -60,8 +37,9 @@ def massage():
     for i in data:
         forrest.append(f_massage[i])
         # print(i)
-    f_massage['result'] = Create_score_model(forrest)
+    f_massage['result'] = [5,100000000]
     del forrest[:]
+    print(f_massage)
     return jsonify(f_massage)
 
 

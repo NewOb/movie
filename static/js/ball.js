@@ -17,7 +17,7 @@ function liquidFillGaugeDefaultSettings() {
         waveColor: "#CDAA7D", // 填充波的颜色。#178BCA
         nextwaveColor:"#4EEE94",
         waveOffset: 0, //最初抵消波浪的量。0＝无偏移。1 =一个完整波的偏移。
-        textVertPosition: 0.8, // 显示波圈的百分比文本的高度。0＝底部，1＝顶部。
+        textVertPosition: 0.5, // 显示波圈的百分比文本的高度。0＝底部，1＝顶部。
         textSize: 1, // 在波圈中显示的文本的相对高度。1＝50%
         valueCountUp: true, // 如果为真，则显示值在加载后从0计数到其最终值。如果为false，则显示最终值。
         displayPercent: true, //如果为真，则在该值之后显示一%个符号。
