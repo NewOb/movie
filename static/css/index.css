@@ -3,7 +3,7 @@
     float: left;
 }
 #center{
-    width: 45%;
+    width: 42%;
     height: 850px;
     float: left;
 }
@@ -40,7 +40,6 @@ form{
     margin-top: 25px;
     text-align: center;
     font-size: 50px;
-    color: #eb586f;
     font-family: 微软雅黑;
 }
 #cloud,#heatmap,#gauge,#gauge1,#gauge2{

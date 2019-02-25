@@ -18,16 +18,29 @@ config2.maxValue = 10000000000;
 var score = 0;
 var box_office = 0;
 
-d3.select("#stext")
-    .append("h3")
+var svg1 = d3.select("#stext")
+    .append("svg")
+    .attr("id", "st")
+    .attr("width", "100%")
+    .attr("height", 190);
+
+
+var svg2 = d3.select("#btext")
+    .append("svg")
+    .attr("id", "bt")
+    .attr("width", "100%")
+    .attr("height", 190);
+
+var result1 = svg1.append("text")
     .attr("class", "result")
-    .attr("id","stext")
+    .attr("transform", "translate(100,100)")
+    .attr("fill", "#eb586f")
     .text("评分：" + score);
 
-d3.select("#btext")
-    .append("h3")
+var result2 = svg2.append("text")
     .attr("class", "result")
-    .attr("id","btext")
+    .attr("transform", "translate(100,100)")
+    .attr("fill", "#eb586f")
     .text("票房：" + box_office);
 
 var chart1 = loadLiquidFillGauge("fillgauge1", 0, config1);
@@ -40,15 +53,18 @@ function Result(score, box_office) {
     chart1.update(config1.value);
     chart2.update(config2.value);
 
-    d3.select("#stext")
-        .transition()
+        result1.transition()
         .duration()
         .ease("linear")
-        .text("评分"+score);
+        .text("评分" + score);
 
-    d3.select("#btext")
-        .transition()
-        .duration()
-        .ease("linear")
-        .text("评分"+box_office);
+        result2.transition()
+        .duration(1000)
+        .tween("text", function () {
+            var that = d3.select("this"),
+                i = d3.interpolate(that.text(), score);
+            return function (t) {
+                that.text("评分："+i(t));
+            }
+        });
 }

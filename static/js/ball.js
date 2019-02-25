@@ -15,7 +15,7 @@ function liquidFillGaugeDefaultSettings() {
         waveHeightScaling: true, //控制波大小缩放在低和高填充百分比。当为真时，波高达到最大值，填充量为50%，最小填充量为0%和100%。这有助于防止波浪在接近最小或最大填充时使波浪圈看起来完全满或空。
         waveAnimate: true, // 控制波浪滚动或静止
         waveColor: "#CDAA7D", // 填充波的颜色。#178BCA
-        nextwaveColor:"#4EEE94",
+        nextwaveColor:"#eb586f",
         waveOffset: 0, //最初抵消波浪的量。0＝无偏移。1 =一个完整波的偏移。
         textVertPosition: 0.5, // 显示波圈的百分比文本的高度。0＝底部，1＝顶部。
         textSize: 1, // 在波圈中显示的文本的相对高度。1＝50%
