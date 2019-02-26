@@ -1,58 +1,125 @@
-#form{
+/*body{*/
+    /*background-color: #333333;*/
+/*}*/
+#form {
     width: 25%;
     float: left;
 }
-#center{
+
+#center {
     width: 42%;
     height: 850px;
     float: left;
 }
-#right{
+
+#right {
     width: 30%;
     height: 850px;
     float: left;
 }
-form{
+
+form {
     width: 90%;
     margin: 0 auto;
 }
-#fillgauge1,#fillgauge2{
+
+#fillgauge1, #fillgauge2 {
     width: 100%;
 }
-#ball{
+
+#ball {
     height: 420px;
 }
-#score,#box_office{
+
+#score, #box_office {
     height: 190px;
     width: 100%;
     margin-top: 10px;
 }
-.ball{
+
+.ball {
     float: right;
     width: 45%;
     height: 190px;
 }
-#btext,#stext{
+
+#btext, #stext {
     float: left;
     width: 50%;
 }
+
 .result {
     margin-top: 25px;
     text-align: center;
     font-size: 50px;
     font-family: 微软雅黑;
 }
-#cloud,#heatmap,#gauge,#gauge1,#gauge2{
+
+#cloud, #line, #gauge, #gauge1, #gauge2 {
     height: 280px;
 }
-#gauge1{
+
+#gauge1 {
     width: 50%;
     float: left;
 }
-#gauge2{
+
+#gauge2 {
     width: 50%;
     float: right;
 }
-#bullet{
+
+#bullet {
     height: 420px;
+}
+
+.unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* css formats for the gauge */
+.gauge .domain {
+    stroke-width: 2px;
+    stroke: #000000;
+}
+
+.gauge .tick line {
+    stroke: #000000;
+    stroke-width: 2px;
+}
+
+.gauge line {
+    stroke: #000000;
+}
+
+.gauge .arc, .gauge .cursor {
+    opacity: 0;
+}
+
+.gauge .major {
+    fill: #000000;
+    font-size: 20px;
+    font-family: 'Play', verdana, sans-serif;
+    font-weight: normal;
+}
+
+.gauge .indicator {
+    stroke: #EE3311;
+    fill: #000;
+    stroke-width: 4px;
+}
+
+/* css formats for the segment display */
+.segdisplay .on {
+    fill: #00FFFF;
+
+}
+
+.segdisplay .off {
+    fill: #00FFFF;
+    opacity: 0.15;
 }
