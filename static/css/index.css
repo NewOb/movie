@@ -1,9 +1,12 @@
-/*body{*/
-    /*background-color: #333333;*/
-/*}*/
+body{
+    background-color: #333333;
+}
 #form {
     width: 25%;
     float: left;
+}
+label{
+    color: #ff2e63;
 }
 
 #center {
@@ -84,16 +87,16 @@ form {
 /* css formats for the gauge */
 .gauge .domain {
     stroke-width: 2px;
-    stroke: #000000;
+    stroke: #ffffff;
 }
 
 .gauge .tick line {
-    stroke: #000000;
+    stroke: #ffffff;
     stroke-width: 2px;
 }
 
 .gauge line {
-    stroke: #000000;
+    stroke: #ffffff;
 }
 
 .gauge .arc, .gauge .cursor {
@@ -101,25 +104,25 @@ form {
 }
 
 .gauge .major {
-    fill: #000000;
+    fill: #ffffff;
     font-size: 20px;
     font-family: 'Play', verdana, sans-serif;
     font-weight: normal;
 }
 
 .gauge .indicator {
-    stroke: #EE3311;
-    fill: #000;
+    stroke: #ff2e63;
+    fill: #ffffff;
     stroke-width: 4px;
 }
 
 /* css formats for the segment display */
 .segdisplay .on {
-    fill: #00FFFF;
+    fill: #ff7986;
 
 }
 
 .segdisplay .off {
-    fill: #00FFFF;
+    fill: #ff7986;
     opacity: 0.15;
 }
