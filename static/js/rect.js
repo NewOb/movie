@@ -2,7 +2,7 @@ height = 420;
 
 var data1 = [100000, 100000, 100000, 100000];
 var data2 = [20000, 60000, 40000, 90000];
-var data3 = [50000, 50000, 50000, 50000];
+var data3 = [60000, 80000, 10000, 40000];
 var names = ["导演", "主演1", "主演2", "主演3"];
 
 console.log(names[0]);
@@ -69,7 +69,7 @@ var qbar = svg.selectAll(".qbar")
     .attr("rx", 5)
     .attr("ry", 5)
     .attr("transform", function (d,i) {
-        var result = (d/data1[i])*500;
+        var result = (d/data1[i])*500+110;
         return "translate("+result+",30)"
     })
     .attr("height", 40);
@@ -92,6 +92,21 @@ svg.selectAll(".rtext")
 
 //zbar的宽度需要改变
 //qbat的translate改变
-function rup() {
+function rup(d1,d2,d4) {
+zbar.transition()
+    .duration(1000)
+    .ease("linear")
+    .data(d2)
+    .attr("width", function (d, i) {
+        return (d / d1[i]) * 500;
+    });
 
+qbar.transition()
+    .duration(1000)
+    .ease("linear")
+    .data(d4)
+    .attr("transform", function (d,i) {
+        var result = (d/d1[i])*500+110;
+        return "translate("+result+",30)"
+    })
 }
