@@ -126,3 +126,19 @@ form {
     fill: #ff7986;
     opacity: 0.15;
 }
+
+.xaxis path,
+.xaxis line,.yaxis path,
+.yaxis line{
+    fill: none;
+    stroke: #ffffff;
+    shape-rendering: crispEdges;
+}
+
+.xaxis text,.yaxis text{
+    fill: #ffffff;
+}
+
+text{
+    font-family: 'Play', verdana, sans-serif;
+}

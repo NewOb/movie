@@ -20,9 +20,9 @@ var yScale = d3.scale.ordinal()
 //     .scale(xScale)
 //     .orient("bottom");
 
-var yAxis = d3.svg.axis()
-    .scale(yScale)
-    .orient("left");
+// var yAxis = d3.svg.axis()
+//     .scale(yScale)
+//     .orient("left");
 
 var lbar = svg.selectAll(".lbar")
     .data(data1)
