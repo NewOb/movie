@@ -37,8 +37,17 @@ def massage():
     for i in data:
         forrest.append(f_massage[i])
         # print(i)
-    f_massage['result'] = [5,100000000]
+    f_massage['result'] = Create_score_model(forrest)
     del forrest[:]
+
+    a=[]
+    #查找目前票房最大值
+    mb = xunlian.query.all()
+    for i in mb:
+        a.append(int(i.Box_office))
+
+    print(a)
+    f_massage['max_box'] = max(a)
     print(f_massage)
     return jsonify(f_massage)
 

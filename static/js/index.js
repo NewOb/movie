@@ -13,8 +13,9 @@ $("#submit").click(function () {
             // console.log(result);
             console.log(result);
             var score = result.result[0];
-            var box_office = result.result[1];
-            Result(score,box_office);
+            var box_office = result.result[1]*10;
+            var max_box = result.max_box;
+            Result(score,box_office,max_box);
             // alert("成功");
         },
         error: function () {

@@ -5,19 +5,22 @@ body{
     width: 25%;
     float: left;
 }
+.form-group {
+    margin-bottom: 5px;
+}
 label{
     color: #f8fff7;
 }
 
 #center {
     width: 42%;
-    height: 850px;
+    height: 830px;
     float: left;
 }
 
 #right {
     width: 30%;
-    height: 850px;
+    height: 830px;
     float: left;
 }
 

@@ -2,7 +2,7 @@
 function liquidFillGaugeDefaultSettings() {
     return {
         minValue: 0, // 仪表最小值 ，从数据中传入
-        maxValue: 888888888, // 仪表最大值，从数据中传入
+        maxValue: 100, // 仪表最大值，从数据中传入
         circleThickness: 0.1, //外圆的厚度作为其半径的一个百分比。
         circleFillGap: 0.1, // 外圆与波圈之间的间隙大小为外圆半径的百分比。
         circleColor: "#20B2AA", //外圆的颜色。
