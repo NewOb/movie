@@ -93,18 +93,18 @@ svg.selectAll(".rtext")
 //zbar的宽度需要改变
 //qbat的translate改变
 function rup(d1,d2,d4) {
-zbar.transition()
+zbar.data(d2)
+    .transition()
     .duration(1000)
     .ease("linear")
-    .data(d2)
     .attr("width", function (d, i) {
         return (d / d1[i]) * 500;
     });
 
-qbar.transition()
+qbar.data(d4)
+    .transition()
     .duration(1000)
     .ease("linear")
-    .data(d4)
     .attr("transform", function (d,i) {
         var result = (d/d1[i])*500+110;
         return "translate("+result+",30)"

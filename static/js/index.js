@@ -17,10 +17,13 @@ $("#submit").click(function () {
             var max_box = result.max_box;
             Result(score,box_office,max_box);
             // alert("成功");
+            $.get("/rect/",function (data,status) {
+                console.log(data);
+                rup(data.d1,data.d2,data.d4)
+            })
         },
         error: function () {
             alert("输入数据异常！")
         }
     })
 });
-
