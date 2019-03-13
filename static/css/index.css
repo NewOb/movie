@@ -1,5 +1,5 @@
 body{
-    background-color: #333333;
+    background-color: #233142;
 }
 #form {
     width: 25%;
@@ -114,19 +114,19 @@ form {
 }
 
 .gauge .indicator {
-    stroke: #ff2e63;
+    stroke: #f95959;
     fill: #ffffff;
     stroke-width: 4px;
 }
 
 /* css formats for the segment display */
 .segdisplay .on {
-    fill: #ff7986;
+    fill: #f98e86;
 
 }
 
 .segdisplay .off {
-    fill: #ff7986;
+    fill: #f98e86;
     opacity: 0.15;
 }
 
@@ -144,4 +144,15 @@ form {
 
 text{
     font-family: 'Play', verdana, sans-serif;
+}
+strong{
+    color: #ffffff;
+}
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 5px;
 }

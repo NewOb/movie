@@ -55,7 +55,7 @@ var segDisplay1 = iopctrl.segdisplay()
 
 svg1.append("g")
     .attr("class", "segdisplay")
-    .attr("transform", "translate(75, 200)")
+    .attr("transform", "translate(80, 200)")
     .call(segDisplay1);
 
 svg.append("g")

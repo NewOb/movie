@@ -10,6 +10,17 @@ db.init_app(app)
 
 f_massage = {}
 
+@app.route("/cloud/",methods=['GET','POST'])
+def cloud():
+    # {
+    #     "name":ddc
+    #     "like":sss
+    # }
+    t_like = xunlian.query.all()
+    for i in t_like:
+        pass
+    pass
+
 
 @app.route("/rect/", methods=['GET', 'POST'])
 def rect():

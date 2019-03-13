@@ -19,7 +19,7 @@ function draw(words) {
         .attr("transform", function (d) {
             return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
         })
-        .style("fill", "#eb586f")
+        .style("fill", "#f95959")
         .style("font-size", function (d) {
             return d.size + "px";
         })

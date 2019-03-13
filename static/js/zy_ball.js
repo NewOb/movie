@@ -3,15 +3,15 @@ var config1 = liquidFillGaugeDefaultSettings();
 // 票房
 var config2 = liquidFillGaugeDefaultSettings();
 
-config1.circleColor = "#eb586f";
-config1.textColor = "#eb586f";
-config1.waveTextColor = "#eb8b8b";
-config1.waveColor = "#eb586f";
+config1.circleColor = "#f95959";
+config1.textColor = "#f95959";
+config1.waveTextColor = "#f98e86";
+config1.waveColor = "#f95959";
 
-config2.circleColor = "#eb586f";
-config2.textColor = "#eb586f";
-config2.waveTextColor = "#eb8b8b";
-config2.waveColor = "#eb586f";
+config2.circleColor = "#f95959";
+config2.textColor = "#f95959";
+config2.waveTextColor = "#f98e86";
+config2.waveColor = "#f95959";
 
 var score = 0;
 var box_office = 0;
@@ -32,13 +32,13 @@ var svg2 = d3.select("#btext")
 var result1 = svg1.append("text")
     .attr("class", "result")
     .attr("transform", "translate(50,100)")
-    .attr("fill", "#eb586f")
+    .attr("fill", "#f95959")
     .text("评分：" + score);
 
 var result2 = svg2.append("text")
     .attr("class", "result")
     .attr("transform", "translate(30,100)")
-    .attr("fill", "#eb586f")
+    .attr("fill", "#f95959")
     .text("票房：" + box_office);
 
 var chart1 = loadLiquidFillGauge("fillgauge1", 0, config1);

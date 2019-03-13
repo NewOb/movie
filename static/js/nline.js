@@ -25,7 +25,7 @@ var yscale = d3.scale.linear()
 var xa = d3.svg.axis()
     .scale(xscale)
     .orient("bottom")
-    // .tickValues([1990, 1995, 2000, 2005, 2010, 2015]);
+    .tickValues([1990, 1995, 2000, 2005, 2010, 2015]);
 
 var ya = d3.svg.axis()
     .scale(yscale)
@@ -68,5 +68,5 @@ var gyAxis = lsvg.append("g")
         .attr("d", line(datasets))
         .attr("transform", "translate(40,0)")
         .attr("fill", "none")
-        .attr("stroke", "#EB586F")
+        .attr("stroke", "#f95959")
         .attr("stroke-width", "4px");
