@@ -2,7 +2,7 @@ var years = [];
 var datasets = [];
 for (var i = 1990; i <= 2016; i++) {
     years.push(i);
-    datasets.push(Math.ceil(Math.random()*600));
+    datasets.push(Math.ceil(Math.random() * 600));
 }
 console.log(datasets);
 var height = 280;
@@ -54,19 +54,39 @@ var gyAxis = lsvg.append("g")
     .attr("fill", "#ffffff")
     .text("点赞量");
 
- var line = d3.svg.line()
-        .x(function (d, i) {
-            return xscale(i + 1990);
-        })
-        .y(function (d) {
-            return yscale(d);
-        })
-     .interpolate("basis");
+var lines = d3.svg.line()
+    .x(function (d, i) {
+        return xscale(i + 1990);
+    })
+    .y(function (d) {
+        return yscale(d);
+    })
+    .interpolate("basis");
 
-   lsvg.append("path")
-        .attr("class", "line_path")
-        .attr("d", line(datasets))
-        .attr("transform", "translate(40,0)")
-        .attr("fill", "none")
-        .attr("stroke", "#f95959")
-        .attr("stroke-width", "4px");
+var mline = lsvg.append("path")
+    .attr("class", "line_path")
+    .attr("d", lines(datasets))
+    .attr("transform", "translate(40,0)")
+    .attr("fill", "none")
+    .attr("stroke", "#f95959")
+    .attr("stroke-width", "4px");
+
+function lineup(ds) {
+    var scale = d3.scale.linear()
+        .domain([d3.min(ds), d3.max(ds)])
+        .range([0, 600]);
+
+    var line = d3.svg.line()
+    .x(function (d, i) {
+        return xscale(i + 1990);
+    })
+    .y(function (d) {
+        return yscale(d);
+    })
+    .interpolate("basis");
+
+    mline.transition()
+        .duration(1000)
+        .ease("linear")
+        .attr("d", line(scale(ds)))
+}

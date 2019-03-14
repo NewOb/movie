@@ -10,16 +10,55 @@ db.init_app(app)
 
 f_massage = {}
 
+@app.route("/line/",methods=['GET','POST'])
+def line():
+    data = {}
+    dataset = []
+    n=1990
+    while(n<=2016):
+        data['year'] = n
+        data['like'] = 0
+        dataset.append(data)
+        data = {}
+        n+=1
+    find = request.form.get("this_type")
+    nd = xunlian.query.all()
+    for i in nd:
+        ft = i.type.split("|")
+        for p in ft:
+            if p == find:
+                for q in dataset:
+                    if int(i.years) == q['year']:
+                        q['like']+=int(i.like_all)
+    print(dataset)
+    return jsonify(dataset)
+
 @app.route("/cloud/",methods=['GET','POST'])
 def cloud():
     # {
     #     "name":ddc
     #     "like":sss
     # }
+    t_data = ['Comedy', 'Advnameture', 'Fantasy', 'Mystery', 'Thriller', 'Documnametary', 'War', 'Western', 'Romance',
+               'Drama', 'Horror', 'Action', 'Sci-Fi', 'Music', 'Family', 'Crime']
+    datasets = []
+    data = {}
+    for i in t_data:
+        data['type'] = i
+        data['like'] = 0
+        datasets.append(data)
+        data = {}
     t_like = xunlian.query.all()
     for i in t_like:
-        pass
-    pass
+        if i.years == "2016":
+            types = i.type.split("|")
+            for p in types:
+                for q in datasets:
+                    if p==q['type']:
+                        q['like'] += int(i.like_all)
+    # print(datasets)
+
+    return jsonify(datasets)
 
 
 @app.route("/rect/", methods=['GET', 'POST'])
