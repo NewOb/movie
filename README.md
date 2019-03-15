@@ -1,4 +1,4 @@
-![前端预览](static/img/TIM图片20190313194208.png)  
+![前端预览](static/img/TIM截图20190315213801.png)  
 *****  
 # 可视化图表模型  
 ### Liquid Fill Gauge  

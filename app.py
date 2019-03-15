@@ -18,6 +18,7 @@ def line():
     while(n<=2016):
         data['year'] = n
         data['like'] = 0
+        data['times'] = 0
         dataset.append(data)
         data = {}
         n+=1
@@ -30,6 +31,7 @@ def line():
                 for q in dataset:
                     if int(i.years) == q['year']:
                         q['like']+=int(i.like_all)
+                        q['times']+=1
     print(dataset)
     return jsonify(dataset)
 
@@ -165,6 +167,7 @@ def massage():
     print(a)
     f_massage['max_box'] = max(a)
     print(f_massage)
+    f_massage['invest'] = int(f_massage['invest'])
     return jsonify(f_massage)
 
 

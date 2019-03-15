@@ -25,7 +25,8 @@ var yscale = d3.scale.linear()
 var xa = d3.svg.axis()
     .scale(xscale)
     .orient("bottom")
-    .tickValues([1990, 1995, 2000, 2005, 2010, 2015]);
+    .tickValues([1990, 1995, 2000, 2005, 2010, 2015])
+    .tickSubdivide(5);
 
 var ya = d3.svg.axis()
     .scale(yscale)
@@ -72,21 +73,17 @@ var mline = lsvg.append("path")
     .attr("stroke-width", "4px");
 
 function lineup(ds) {
-    var scale = d3.scale.linear()
+    mydata = [];
+    var scales = d3.scale.linear()
         .domain([d3.min(ds), d3.max(ds)])
         .range([0, 600]);
 
-    var line = d3.svg.line()
-    .x(function (d, i) {
-        return xscale(i + 1990);
-    })
-    .y(function (d) {
-        return yscale(d);
-    })
-    .interpolate("basis");
-
+    for (var i = 0; i < ds.length; i++) {
+        mydata[i] = scales(ds[i])
+    }
+    console.log(ds);
     mline.transition()
         .duration(1000)
         .ease("linear")
-        .attr("d", line(scale(ds)))
+        .attr("d", lines(mydata))
 }

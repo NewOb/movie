@@ -30,32 +30,8 @@ d3.json("/cloud/",function (error,data) {
         .style("font-family", "Impact")
         .text(function (d) {
             return d.text;
-        })
-        .on("click",function () {
-            console.log(this.textContent);
-            $.post('/line/',{"this_type":this.textContent},
-                function (data,status) {
-                    // console.log(data);
-                    like = [];
-                    for(var i=0;i<data.length;i++){
-                        like[i] = data[i].like
-                    }
-                    console.log(like);
-                    lineup(like)
-                });           //向后端发送类型，以便给予折线图数据
+        });
 
-            d3.selectAll(".cloud_text")
-                .transition()
-                .duration(500)
-                .ease("linear")
-                .style("fill","#f95959");
-
-            d3.select(this)
-                .transition()
-                .duration(500)
-                .ease("linear")
-                .style("fill","#f98e86");
-        })
 }
 
 var scale = d3.scale.linear()

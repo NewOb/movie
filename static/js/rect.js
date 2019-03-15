@@ -7,6 +7,9 @@ datasets = {
     "names":["导演", "主演1", "主演2", "主演3"]
 };
 
+var lab = ["最高值","平均值","当前值"];
+var colors = ["#f98e86","#455d7a","#f95959"];
+
 // var data1 = [100000, 100000, 100000, 100000];   //导演，主演的最高值
 // var data2 = [20000, 60000, 40000, 90000];       //当前导演，主演的受欢迎程度
 // var data3 = [60000, 80000, 10000, 40000];       //导演，主演的平均值
@@ -22,7 +25,35 @@ var svg = d3.select("#bullet")
 
 var yScale = d3.scale.ordinal()
     .domain(names)
-    .rangeRoundBands([0, height - 20]);
+    .rangeRoundBands([0, height - 90]);
+
+svg.selectAll(".rlabel")
+    .data(colors)
+    .enter()
+    .append("rect")
+    .attr("width",30)
+    .attr("height",30)
+    .attr("class",".rlabel")
+    .attr("fill",function (d) {
+        return d
+    })
+    .attr("transform",function (d,i) {
+        return "translate("+(i*150+180)+",340)"
+    });
+
+svg.selectAll(".rltext")
+    .data(lab)
+    .enter()
+    .append("text")
+    .attr("class",".rltext")
+    .text(function (d) {
+        return d
+    })
+    .attr("fill","white")
+    .attr("transform",function (d,i) {
+        return "translate("+(i*150+173)+",390)"
+    })
+    .attr("font-size","15px");
 
 var tip1 = d3.tip()
   .attr('class', 'd3-tip')

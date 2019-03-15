@@ -69,9 +69,17 @@ svg1.append("g")
     .call(gauge1);
 
 
-segDisplay.value(350);  //内盘蓝色数字的值,投资数
-segDisplay1.value(100000000 / (350 * 10000));  //外盘蓝色数字的值，回报率
+segDisplay.value(0);  //内盘蓝色数字的值,投资数
+segDisplay1.value(0);  //外盘蓝色数字的值，回报率
 
 
-gauge.value(350 / 100);   //内盘指针当前指向的值，投资级数
-gauge1.value(100000000 / (350 * 10000));   //外盘指针当前指向的值,回报率
+gauge.value(0 / 100);   //内盘指针当前指向的值，投资级数
+gauge1.value(-5);   //外盘指针当前指向的值,回报率
+
+function upgauge(value) {
+    gauge.value(value / 100);
+    gauge1.value(100000000 / (value * 10000));
+    segDisplay.value(value);
+    segDisplay1.value(100000000 / (value * 10000));
+    console.log(value)
+}

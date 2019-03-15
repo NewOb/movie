@@ -4,9 +4,10 @@ body{
 #form {
     width: 25%;
     float: left;
+    margin-top: 15px;
 }
 .form-group {
-    margin-bottom: 5px;
+    margin-bottom: 9px;
 }
 label{
     color: #f8fff7;
@@ -16,12 +17,14 @@ label{
     width: 42%;
     height: 830px;
     float: left;
+    margin-top: 25px;
 }
 
 #right {
     width: 30%;
     height: 830px;
     float: left;
+    margin-top: 25px;
 }
 
 form {
@@ -77,6 +80,7 @@ form {
 
 #bullet {
     height: 420px;
+    margin-top: 10px;
 }
 
 .unselectable {
@@ -155,4 +159,7 @@ strong{
   background: rgba(0, 0, 0, 0.8);
   color: #fff;
   border-radius: 5px;
+}
+#line,#gauge{
+    margin-top: 15px;
 }
