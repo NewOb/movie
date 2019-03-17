@@ -15,9 +15,15 @@ $("#submit").click(function () {
             var score = result.result[0];
             var box_office = result.result[1] * 10;
             var max_box = result.max_box;
+            var addnames = [];
+            addnames[0] = result.director;
+            addnames[1] = result.act1;
+            addnames[2] = result.act2;
+            addnames[3] = result.act3;
+            addname(addnames);
             Result(score, box_office, max_box);
             // alert("成功");
-            upgauge(result.invest);
+            upgauge(result.result[1],result.invest);
             $.get("/rect/", function (data, status) {
                 console.log(data);
                 rup(data.d1, data.d2, data.d4)
@@ -56,7 +62,7 @@ $("#submit").click(function () {
                     d3.selectAll(".cloud_text")
                         .transition()
                         .duration(300)
-                        .ease("linear")
+                        .ease("linear")  //
                         .style("fill", function () {
                             var color = "#838289";
                             for (var i=0;i<result.type.length;i++){

@@ -1,14 +1,14 @@
 height = 420;
 
 datasets = {
-  "d1": [100000, 100000, 100000, 100000],
-  "d2": [20000, 60000, 40000, 90000],
-  "d4": [60000, 80000, 10000, 40000],
-    "names":["导演", "主演1", "主演2", "主演3"]
+    "d1": [100000, 100000, 100000, 100000],
+    "d2": [20000, 60000, 40000, 90000],
+    "d4": [60000, 80000, 10000, 40000],
+    "names": ["导演", "主演1", "主演2", "主演3"]
 };
 
-var lab = ["最高值","平均值","当前值"];
-var colors = ["#f98e86","#455d7a","#f95959"];
+var lab = ["最高值", "平均值", "当前值"];
+var colors = ["#f98e86", "#455d7a", "#f95959"];
 
 // var data1 = [100000, 100000, 100000, 100000];   //导演，主演的最高值
 // var data2 = [20000, 60000, 40000, 90000];       //当前导演，主演的受欢迎程度
@@ -31,50 +31,50 @@ svg.selectAll(".rlabel")
     .data(colors)
     .enter()
     .append("rect")
-    .attr("width",30)
-    .attr("height",30)
-    .attr("class",".rlabel")
-    .attr("fill",function (d) {
+    .attr("width", 30)
+    .attr("height", 30)
+    .attr("class", ".rlabel")
+    .attr("fill", function (d) {
         return d
     })
-    .attr("transform",function (d,i) {
-        return "translate("+(i*150+180)+",340)"
+    .attr("transform", function (d, i) {
+        return "translate(" + (i * 150 + 180) + ",360)"
     });
 
 svg.selectAll(".rltext")
     .data(lab)
     .enter()
     .append("text")
-    .attr("class",".rltext")
+    .attr("class", ".rltext")
     .text(function (d) {
         return d
     })
-    .attr("fill","white")
-    .attr("transform",function (d,i) {
-        return "translate("+(i*150+173)+",390)"
+    .attr("fill", "white")
+    .attr("transform", function (d, i) {
+        return "translate(" + (i * 150 + 173) + ",410)"
     })
-    .attr("font-size","15px");
+    .attr("font-size", "15px");
 
 var tip1 = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<strong>最高值:</strong> <span style='color:#f98e86'>" + d + "</span>" ;
-  });
+    .attr('class', 'd3-tip')
+    .offset([-10, 0])
+    .html(function (d) {
+        return "<strong>最高值:</strong> <span style='color:#f98e86'>" + d + "</span>";
+    });
 
 var tip2 = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<strong>当前值:</strong> <span style='color:#f95959'>" + d + "</span>" ;
-  });
+    .attr('class', 'd3-tip')
+    .offset([-10, 0])
+    .html(function (d) {
+        return "<strong>当前值:</strong> <span style='color:#f95959'>" + d + "</span>";
+    });
 
 var tip3 = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<strong>平均值:</strong> <span style='color:#455d7a'>" + d + "</span>" ;
-  });
+    .attr('class', 'd3-tip')
+    .offset([-10, 0])
+    .html(function (d) {
+        return "<strong>平均值:</strong> <span style='color:#455d7a'>" + d + "</span>";
+    });
 
 svg.call(tip1);
 svg.call(tip2);
@@ -92,7 +92,7 @@ var lbar = svg.selectAll(".lbar")
     .enter()
     .append("rect")
     .attr("class", "lbar")
-    .attr("y", function (d,i) {
+    .attr("y", function (d, i) {
         return yScale(names[i])
     })
     .attr("transform", "translate(110,30)")
@@ -101,8 +101,8 @@ var lbar = svg.selectAll(".lbar")
     .attr("ry", 20)
     .attr("width", 500)
     .attr("height", 40)
-    .on('mouseover',tip1.show)
-    .on('mouseout',tip1.hide);
+    .on("mouseover", tip1.show)
+    .on("mouseout", tip1.hide);
 
 var zbar = svg.selectAll(".zbar")
     .data(datasets.d2)
@@ -120,8 +120,8 @@ var zbar = svg.selectAll(".zbar")
     .attr("ry", 20)
     .attr("transform", "translate(110,30)")
     .attr("height", 40)
-.on('mouseover',tip2.show)
-    .on('mouseout',tip2.hide);
+    .on("mouseover", tip2.show)
+    .on("mouseout", tip2.hide);
 
 var qbar = svg.selectAll(".qbar")
     .data(datasets.d4)
@@ -132,51 +132,77 @@ var qbar = svg.selectAll(".qbar")
         return yScale(names[i])
     })
     .attr("fill", "#455d7a")
-    .attr("width",10)
+    .attr("width", 10)
     .attr("rx", 5)
     .attr("ry", 5)
-    .attr("transform", function (d,i) {
-        var result = (d/datasets.d1[i])*500+110;
-        return "translate("+result+",30)"
+    .attr("transform", function (d, i) {
+        var result = (d / datasets.d1[i]) * 500 + 110;
+        return "translate(" + result + ",30)"
     })
     .attr("height", 40)
-.on('mouseover',tip3.show)
-    .on('mouseout',tip3.hide);
+    .on("mouseover", tip3.show)
+    .on("mouseout", tip3.hide);
 
 svg.selectAll(".rtext")
-.data(names)
-.enter()
-.append("text")
-.attr("class","rtext")
-.attr("fill","#F8FFF7")
-.text(function (d) {
-    return d;
-})
+    .data(names)
+    .enter()
+    .append("text")
+    .attr("class", "rtext")
+    .attr("fill", "#F8FFF7")
+    .text(function (d) {
+        return d;
+    })
     .attr("y", function (d) {
         return yScale(d)
     })
-    .attr("font-size",30)
-.attr("transform","translate(20,60)");
+    .attr("font-size", 30)
+    .attr("transform", "translate(20,60)");
 
 //zbar的宽度需要改变
 //qbat的translate改变
-function rup(d1,d2,d4) {
+function rup(d1, d2, d4) {
     lbar.data(d1);
 
-zbar.data(d2)
-    .transition()
-    .duration(1000)
-    .ease("linear")
-    .attr("width", function (d, i) {
-        return (d / d1[i]) * 500;
-    });
+    var Scale1 = d3.scale.linear()
+    .domain([d3.min(d2),d3.max(d2)])
+    .range([30,480]);
 
-qbar.data(d4)
-    .transition()
-    .duration(1000)
-    .ease("linear")
-    .attr("transform", function (d,i) {
-        var result = (d/d1[i])*500+110;
-        return "translate("+result+",30)"
-    });
+    var Scale2 = d3.scale.linear()
+    .domain([d3.min(d4),d3.max(d4)])
+    .range([30,470]);
+
+    zbar.data(d2)
+        .transition()
+        .duration(1000)
+        .ease("linear")
+        .attr("width", function (d) {
+            return Scale1(d);
+        });
+
+    qbar.data(d4)
+        .transition()
+        .duration(1000)
+        .ease("linear")
+        .attr("transform", function (d) {
+            var result = Scale2(d)+ 110;
+            return "translate(" + result + ",30)"
+        });
+}
+
+function addname(name) {
+    var bsvg = d3.select("#bsvg");
+    bsvg.selectAll(".name_text")
+        .data(name)
+        .enter()
+        .append("text")
+        .text(function (d) {
+            return d;
+        })
+        .attr("class", "name_text")
+        .attr("fill", "white")
+        .attr("font-size", 15)
+        .attr("transform", function (d, i) {
+            var p = yScale(names[i]);
+            return "translate(90," + (p + 90) + ")"
+        })
 }
