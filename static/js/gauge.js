@@ -51,7 +51,7 @@ svg.append("text")
     .text("投资等级")
     .attr("fill","#ffffff")
     .attr("transform", "translate(85,250)")
-    .attr("font-size",15)
+    .attr("font-size",15);
 
 var segDisplay1 = iopctrl.segdisplay()
     .width(80)  //蓝色数字的宽度
@@ -78,7 +78,7 @@ svg1.append("text")
     .text("投资汇报比")
     .attr("fill","#ffffff")
     .attr("transform", "translate(85,250)")
-    .attr("font-size",15)
+    .attr("font-size",15);
 
 segDisplay.value(0);  //内盘蓝色数字的值,投资数
 segDisplay1.value(0);  //外盘蓝色数字的值，回报率
